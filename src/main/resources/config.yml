@@ -1,0 +1,81 @@
+cmd:
+  lockdown:
+    allow_op: false
+  kill:
+    disable_kill_message: true
+util:
+  auto_save:
+    enable: true
+    interval_tick: 6000
+    start_mergin: 6000
+    broadcast_information: true
+fun:
+  handshake_item_exchange: true
+  sign_colorcode_convert: true
+  login_message: true
+protection:
+  water_walking:
+    disable: true
+    world_list:
+      - world
+      - world_nether
+      - world_thr_end
+  chorus_fruit:
+    disable: true
+    world_list:
+      - world
+      - world_nether
+      - world_thr_end
+  create_hopper_cart:
+    disable: true
+  inventory:
+    creative_control: true
+  disable_explosion:
+    ender_crystal: true
+  place:
+    wet_sponge:
+      disable: true
+    endcitypath:
+      disable: true
+      end_world_prefix: "end"
+    map:
+      disable: true
+      ignore_world_prefix: "none"
+      logging: true
+      logfilename: "map_reject.txt"
+  interact:
+    ender_crystal:
+      disable: true
+      ignore_world_prefix: "end"
+      logging: true
+      logfilename: "ender_crystal_reject.txt"
+    mob_egg:
+      disable: true
+      ignore_world_prefix: "end"
+      logging: true
+      logfilename: "spawner_change_reject.txt"
+    bed:
+      disable: true
+      ignore_world_prefix: "end"
+      logging: true
+      logfilename: "bed_reject.txt"
+    hoppercart:
+      disable: true
+      ignore_world_prefix: "none"
+      logging: true
+      logfilename: "nether_bed_reject.txt"
+security:
+  join:
+    show_partof_ipaddress: true
+    force_disable_flight_mode: true
+  logout:
+    forced_takedown_from_vehicle: true
+  kick:
+    reason_announce: true
+    reason_announce_plus_host: true
+    until_server_stop: false
+    logging: true
+    logfilename: "kick_reject.txt"
+    
+    
+    

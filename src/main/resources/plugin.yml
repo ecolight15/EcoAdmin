@@ -1,0 +1,96 @@
+name: EcoAdmin
+main: jp.minecraftuser.ecoadmin.EcoAdmin
+version: ${project.version}
+depend: [EcoFramework]
+commands:
+  eca:
+    description: EcoAdmin command.
+    usage: /<command>
+  loc:
+    description: EcoAdmin command.
+    usage: /<command>
+  heal:
+    description: EcoAdmin command.
+    usage: /<command>
+  feed:
+    description: EcoAdmin command.
+    usage: /<command>
+  clear:
+    description: EcoAdmin command.
+    usage: /<command>
+  setspawn:
+    description: EcoAdmin command.
+    usage: /<command>
+  spawn:
+    description: EcoAdmin command.
+    usage: /<command>
+  tp:
+    description: EcoAdmin command.
+    usage: /<command>
+  tpp:
+    description: EcoAdmin command.
+    usage: /<command>
+  tphere:
+    description: EcoAdmin command.
+    usage: /<command>
+  tpsee:
+    description: EcoAdmin command.
+    usage: /<command>
+  back:
+    description: EcoAdmin command.
+    usage: /<command>
+  strike:
+    description: EcoAdmin command.
+    usage: /<command>
+  t:
+    description: EcoAdmin command.
+    usage: /<command>
+  tpsv:
+    description: EcoAdmin command.
+    usage: /<command>
+  ecban:
+    description: EcoAdmin command.
+    usage: /<command>
+  ecunban:
+    description: EcoAdmin command.
+    usage: /<command>
+  freeze:
+    description: EcoAdmin command.
+    usage: /<command>
+  afk:
+    description: EcoAdmin command.
+    usage: /<command>
+  fly:
+    description: EcoAdmin command.
+    usage: /<command>
+  gm:
+    description: EcoAdmin command.
+    usage: /<command>
+  hide:
+    description: EcoAdmin command.
+    usage: /<command>
+  show:
+    description: EcoAdmin command.
+    usage: /<command>
+  kill:
+    description: EcoAdmin command.
+    usage: /<command>
+  pkill:
+    description: EcoAdmin command.
+    usage: /<command>
+  login:
+    description: EcoAdmin command.
+    usage: /<command>
+  lock:
+    description: EcoAdmin command.
+    usage: /<command>
+  unlock:
+    description: EcoAdmin command.
+    usage: /<command>
+  stop:
+    description: EcoAdmin command.
+    usage: /<command>
+    
+
+    
+    
