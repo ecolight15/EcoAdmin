@@ -214,7 +214,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginTimer(new SaveTimer(this, "save"));
 
         // TPS測定タイマー起動
-        runTaskTimer("correction", 0L, 50L);            // 現在から2.5秒間隔
+        runTaskTimer("correction", 0L, 50L);            // 現在から2.5秒間隔 
 
         // オートセーブタイマー
         ConfigFrame conf = getDefaultConfig();
