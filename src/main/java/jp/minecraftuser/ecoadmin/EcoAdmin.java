@@ -9,6 +9,7 @@ import jp.minecraftuser.ecoadmin.command.BackCommand;
 import jp.minecraftuser.ecoadmin.command.ClearCommand;
 import jp.minecraftuser.ecoadmin.command.EcaCommand;
 import jp.minecraftuser.ecoadmin.command.EcaReloadCommand;
+import jp.minecraftuser.ecoadmin.command.EcaTestCommand;
 import jp.minecraftuser.ecoadmin.command.EcbanCommand;
 import jp.minecraftuser.ecoadmin.command.EcunbanCommand;
 import jp.minecraftuser.ecoadmin.command.FeedCommand;
@@ -159,6 +160,7 @@ public class EcoAdmin  extends PluginFrame {
     public void initializeCommand() {
         CommandFrame cmd = new EcaCommand(this, "eca");
         cmd.addCommand(new EcaReloadCommand(this, "reload"));
+        cmd.addCommand(new EcaTestCommand(this, "test"));
         registerPluginCommand(cmd);
         registerPluginCommand(new LocCommand(this, "loc"));
         registerPluginCommand(new HealCommand(this, "heal"));

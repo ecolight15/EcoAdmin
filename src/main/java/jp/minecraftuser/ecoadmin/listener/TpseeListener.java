@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * @author ecolight
  */
 public class TpseeListener extends ListenerFrame {
-    private static HashMap<Player, Boolean> tpsee = null;
+    private static HashMap<Player, Boolean> tpsee = new HashMap<>();
     /**
      * コンストラクタ
      * @param plg_ プラグインインスタンス

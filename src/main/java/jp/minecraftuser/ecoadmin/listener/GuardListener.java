@@ -16,6 +16,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -101,17 +102,22 @@ public class GuardListener extends ListenerFrame {
             (conf.getBoolean("protection.interact.mob_egg.logging"))) {
             Player p = e.getPlayer();
             if (!p.isOp()) {
-                if (e.getClickedBlock().getType() == Material.MOB_SPAWNER) {
-                    if (e.getItem() != null) {
-                        if (e.getItem().getType() == Material.MONSTER_EGG) {
-                            Block b = e.getClickedBlock();
-                            if (b != null) {
+                Block b = e.getClickedBlock();
+                if (b != null) {
+                    BlockData bd = b.getBlockData();
+                    if ((bd != null) && (bd.getMaterial() != null) && (bd.getMaterial().name().equals("MOB_SPAWNER"))) {
+                        if (e.getItem() != null) {
+                            if (e.getItem().toString().indexOf("SPAWN_EGG") != -1) {
+                                log.info("1");
                                 if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.mob_egg.ignore_world_prefix"))) {
+                                log.info("2");
                                     if ((conf.getBoolean("protection.interact.mob_egg.disable"))) {
+                                log.info("3");
                                         sendPluginMessage(plg, p, "このワールドでのMOB卵によるスポナーブロックの変更は制限されています");
                                         e.setCancelled(true);
                                     }
                                     if (conf.getBoolean("protection.interact.mob_egg.logging")) {
+                                log.info("4");
                                         StringBuilder sb = new StringBuilder("SPAWNER BLOCK clicked[player=");
                                         sb.append(p.getName());
                                         sb.append("] worldname=");
@@ -136,21 +142,23 @@ public class GuardListener extends ListenerFrame {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     Block b = e.getClickedBlock();
                     if (b != null) {
-                        if (((b.getType() == Material.BED_BLOCK) || (b.getType() == Material.BED)) &&
-                            ((b.getBiome() == Biome.HELL) || (b.getBiome() == Biome.SKY))) {
-                            if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.bed.ignore_world_prefix"))) {
-                                if ((conf.getBoolean("protection.interact.bed.disable"))) {
-                                    sendPluginMessage(plg, p, "このワールドでのベッドの使用は制限されています");
-                                    e.setCancelled(true);
-                                }
-                                if (conf.getBoolean("protection.interact.bed.logging")) {
-                                    StringBuilder sb = new StringBuilder("BEDBLOCK Interact[player=");
-                                    sb.append(p.getName());
-                                    sb.append("] worldname=");
-                                    sb.append(p.getWorld().getName());
-                                    sb.append(" loc=");
-                                    sb.append(p.getLocation().toString());
-                                    plg.getPluginLogger("bedrej").log(sb);
+                        if ((b.getBiome() == Biome.NETHER) || (b.getBiome() == Biome.THE_END)) {
+                            if ((b.getBlockData() != null) && (b.getBlockData().getMaterial() != null) &&
+                                (b.getBlockData().getMaterial().name().equals("BED") || b.getBlockData().getMaterial().name().equals("BED_BLOCK"))) {
+                                if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.bed.ignore_world_prefix"))) {
+                                    if ((conf.getBoolean("protection.interact.bed.disable"))) {
+                                        sendPluginMessage(plg, p, "このワールドでのベッドの使用は制限されています");
+                                        e.setCancelled(true);
+                                    }
+                                    if (conf.getBoolean("protection.interact.bed.logging")) {
+                                        StringBuilder sb = new StringBuilder("BEDBLOCK Interact[player=");
+                                        sb.append(p.getName());
+                                        sb.append("] worldname=");
+                                        sb.append(p.getWorld().getName());
+                                        sb.append(" loc=");
+                                        sb.append(p.getLocation().toString());
+                                        plg.getPluginLogger("bedrej").log(sb);
+                                    }
                                 }
                             }
                         }
@@ -169,7 +177,7 @@ public class GuardListener extends ListenerFrame {
                         if (e.getItem().getType() == Material.HOPPER_MINECART) {
                             Block b = e.getClickedBlock();
                             if (b != null) {
-                                if ((b.getType() == Material.RAILS) ||
+                                if ((b.getBlockData().getMaterial().name().equals("RAILS")) ||
                                     (b.getType() == Material.POWERED_RAIL) ||
                                     (b.getType() == Material.DETECTOR_RAIL) ||
                                     (b.getType() == Material.ACTIVATOR_RAIL)) {

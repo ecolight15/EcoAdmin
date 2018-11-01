@@ -102,10 +102,17 @@ public class PlayerConnectionListener extends ListenerFrame {
         }
 
         // Kickしたユーザーをしばらくサーバーログインさせない設定がされている場合は蹴り出す
-        if (denylist.contains(e.getRealAddress().getHostAddress())) {
-            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "あなたの接続は一時的に制限されています");
-            return;
-        }
+        // ★1.13-R0.1にて、なぜか本体側からだけgetRealAddressが削除されてるので代替手段が見つかるまでコメントアウト
+/*        if (e != null) {
+            if (e.getRealAddress() != null) {
+                if (denylist.contains(e.getRealAddress().getHostAddress())) {
+                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "あなたの接続は一時的に制限されています");
+                    return;
+                }
+            }
+        } else {
+            plg.getServer().broadcastMessage("Player Login event is null");
+        }*/
     }
 
     /**

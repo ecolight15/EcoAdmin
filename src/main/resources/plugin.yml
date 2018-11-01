@@ -90,6 +90,9 @@ commands:
   stop:
     description: EcoAdmin command.
     usage: /<command>
+  test:
+    description: EcoAdmin command.
+    usage: /<command>
     
 
     
