@@ -74,7 +74,7 @@ public class TppCommand extends CommandFrame {
                 }
             } else {
                 // ワールド指定かつ取得失敗
-                sendPluginMessage(plg, sender, "world[{0}] が見つかりませんでした");
+                sendPluginMessage(plg, sender, "world[{0}] が見つかりませんでした", args[0]);
             }
         }
         return true;

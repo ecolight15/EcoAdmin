@@ -44,7 +44,7 @@ public class HideCommand extends CommandFrame {
         // ・mapで設定を記録、logout or showコマンドで設定解除、joinユーザーに対してhide実行させるのをそのうちやること
         // あと他プレイヤー指定対応も
         for (Player pl : plg.getServer().getOnlinePlayers()) {
-            pl.hidePlayer(p);
+            pl.hidePlayer(plg, p);
         }
         sendPluginMessage(plg, sender, "他プレイヤーから隠れた状態になりました");
         return true;

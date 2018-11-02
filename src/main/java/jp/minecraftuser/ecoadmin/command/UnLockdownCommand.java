@@ -41,7 +41,7 @@ public class UnLockdownCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
-        ((PlayerConnectionListener)plg.getPluginListerner("player")).setServerLockdown(null);
+        ((PlayerConnectionListener)plg.getPluginListerner("plconnection")).setServerLockdown(null);
         sendPluginMessage(plg, sender, "サーバーのロックを解除しました");
         return true;
     }

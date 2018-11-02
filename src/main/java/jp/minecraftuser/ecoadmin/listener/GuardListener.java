@@ -105,19 +105,15 @@ public class GuardListener extends ListenerFrame {
                 Block b = e.getClickedBlock();
                 if (b != null) {
                     BlockData bd = b.getBlockData();
-                    if ((bd != null) && (bd.getMaterial() != null) && (bd.getMaterial().name().equals("MOB_SPAWNER"))) {
+                    if ((bd != null) && (bd.getMaterial().equals(Material.SPAWNER))) {
                         if (e.getItem() != null) {
                             if (e.getItem().toString().indexOf("SPAWN_EGG") != -1) {
-                                log.info("1");
                                 if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.mob_egg.ignore_world_prefix"))) {
-                                log.info("2");
                                     if ((conf.getBoolean("protection.interact.mob_egg.disable"))) {
-                                log.info("3");
                                         sendPluginMessage(plg, p, "このワールドでのMOB卵によるスポナーブロックの変更は制限されています");
                                         e.setCancelled(true);
                                     }
                                     if (conf.getBoolean("protection.interact.mob_egg.logging")) {
-                                log.info("4");
                                         StringBuilder sb = new StringBuilder("SPAWNER BLOCK clicked[player=");
                                         sb.append(p.getName());
                                         sb.append("] worldname=");
@@ -144,7 +140,7 @@ public class GuardListener extends ListenerFrame {
                     if (b != null) {
                         if ((b.getBiome() == Biome.NETHER) || (b.getBiome() == Biome.THE_END)) {
                             if ((b.getBlockData() != null) && (b.getBlockData().getMaterial() != null) &&
-                                (b.getBlockData().getMaterial().name().equals("BED") || b.getBlockData().getMaterial().name().equals("BED_BLOCK"))) {
+                                (b.getBlockData().getMaterial().name().endsWith("_BED"))) {
                                 if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.bed.ignore_world_prefix"))) {
                                     if ((conf.getBoolean("protection.interact.bed.disable"))) {
                                         sendPluginMessage(plg, p, "このワールドでのベッドの使用は制限されています");
@@ -174,16 +170,17 @@ public class GuardListener extends ListenerFrame {
             if (!p.isOp()) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     if (e.getItem() != null) {
-                        if (e.getItem().getType() == Material.HOPPER_MINECART) {
+                        if (e.getItem().getType().equals(Material.HOPPER_MINECART)) {
                             Block b = e.getClickedBlock();
                             if (b != null) {
                                 if ((b.getBlockData().getMaterial().name().equals("RAILS")) ||
-                                    (b.getType() == Material.POWERED_RAIL) ||
-                                    (b.getType() == Material.DETECTOR_RAIL) ||
-                                    (b.getType() == Material.ACTIVATOR_RAIL)) {
+                                    (b.getType().equals(Material.RAIL)) ||
+                                    (b.getType().equals(Material.POWERED_RAIL)) ||
+                                    (b.getType().equals(Material.DETECTOR_RAIL)) ||
+                                    (b.getType().equals(Material.ACTIVATOR_RAIL))) {
                                     if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.hoppercart.ignore_world_prefix"))) {
                                         if ((conf.getBoolean("protection.interact.hoppercart.disable"))) {
-                                            sendPluginMessage(plg, p, "このワールドでのホッパーカードの使用は制限されています");
+                                            sendPluginMessage(plg, p, "このワールドでのホッパーカートの使用は制限されています");
                                             e.setCancelled(true);
                                         }
                                         if (conf.getBoolean("protection.interact.hoppercart.logging")) {
@@ -215,12 +212,10 @@ public class GuardListener extends ListenerFrame {
         // 濡れたスポンジの設置をキャンセルする
         if (conf.getBoolean("protection.place.wet_sponge.disable")) {
             Block b = e.getBlock();
-            if (b.getType() == Material.SPONGE) {
+            if (b.getType().equals(Material.WET_SPONGE)) {
                 Player p = e.getPlayer();
-                BlockState s = b.getState();
-                MaterialData d = s.getData();
-                if ((d.toString().equals("SPONGE(1)") && (!p.isOp()))) {
-                    sendPluginMessage(plg, p, "スポンジを設置することはできません");
+                if (!p.isOp()) {
+                    sendPluginMessage(plg, p, "濡れたスポンジを設置することはできません");
                     e.setCancelled(true);
                 }
             }
@@ -262,7 +257,7 @@ public class GuardListener extends ListenerFrame {
             Player p = e.getPlayer();
             if ((e.getRightClicked().getType() == EntityType.ITEM_FRAME) && 
                 (!p.isOp()) && 
-                (p.getInventory().getItemInMainHand().getType() == Material.MAP)) {
+                (p.getInventory().getItemInMainHand().getType().equals(Material.FILLED_MAP))) {
 
                 if (!p.getWorld().getName().startsWith(conf.getString("protection.place.map.ignore_world_prefix"))) {
                     if ((conf.getBoolean("protection.place.map.disable"))) {
@@ -325,7 +320,7 @@ public class GuardListener extends ListenerFrame {
         if (!allow_creative) {
             if (e.getWhoClicked() instanceof Player) {
                 Player p = (Player) e.getWhoClicked();
-                if (p.getGameMode() != GameMode.CREATIVE) {
+                if (p.getGameMode() == GameMode.CREATIVE) {
                     if (!p.isOp()) {
                         e.setCancelled(true);
                         sendPluginMessage(plg, p, "クリエイティブにおけるインベントリ操作は抑止されています");

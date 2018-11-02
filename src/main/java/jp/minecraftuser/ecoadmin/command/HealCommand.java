@@ -80,18 +80,21 @@ public class HealCommand extends CommandFrame {
             else {
                 switch (args.length) {
                     case 0: // 本人指定で数値指定なし
-                        // (1) feed
+                        // (1) heal
                         p = (Player) sender;
-                        p.setHealth(p.getMaxHealth());
+                        p.setHealth(p.getHealthScale());
                         break;
                     case 1: // 本人指定で数値指定あり or 数値以外のプレイヤー指定のみ or プレイヤー名指定ミス
-                        // (2) feed num
+                        // (2) heal num
                         // (3) feed [player]
                         if (p == null) {
                             p = (Player) sender;
-                            p.setHealth(p.getHealth() + Integer.parseInt(args[0]));
+                            double hp = p.getHealth() + Integer.parseInt(args[0]);
+                            if (hp > 20) hp = 20;
+                            if (hp < 0) hp = 0;
+                            p.setHealth(hp);
                         } else {
-                            p.setHealth(p.getMaxHealth());
+                            p.setHealth(p.getHealthScale());
                         }
                         break;
                     case 2: // 数値以外のプレイヤー名指定ありかつ数値指定あり
@@ -100,7 +103,10 @@ public class HealCommand extends CommandFrame {
                             sendPluginMessage(plg, sender, "プレイヤー[{0}]が見つかりませんでした", args[0]);
                             return true;
                         }
-                        p.setHealth(p.getHealth()+ Integer.parseInt(args[1]));
+                        double hp = p.getHealth()+ Integer.parseInt(args[1]);
+                        if (hp > 20) hp = 20;
+                        if (hp < 0) hp = 0;
+                        p.setHealth(hp);
                         break;
                 }
             }
@@ -108,7 +114,7 @@ public class HealCommand extends CommandFrame {
             sendPluginMessage(plg, sender, "プレイヤー[{0}]のHealthLevel設定で数値変換に失敗しました", p.getName());
             return true;
         }        
-        sendPluginMessage(plg, sender, "プレイヤー[{0}]のHealthLevelを{1}に設定しました", p.getName(), Integer.toString(p.getFoodLevel()));
+        sendPluginMessage(plg, sender, "プレイヤー[{0}]のHealthLevelを{1}に設定しました", p.getName(), Integer.toString((int) p.getHealth()));
         return true;
     }
     

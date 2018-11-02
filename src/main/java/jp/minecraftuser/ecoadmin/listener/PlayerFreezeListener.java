@@ -34,7 +34,9 @@ public class PlayerFreezeListener extends ListenerFrame {
     public void PlayerMove(PlayerMoveEvent event)
     {
         if (freezeMap.containsKey(event.getPlayer())) {
-            event.setCancelled(true);
+            if (freezeMap.get(event.getPlayer())) {
+                event.setCancelled(true);
+            }
         } 
     }
 
@@ -44,7 +46,11 @@ public class PlayerFreezeListener extends ListenerFrame {
      * @param flag 凍結状態
      */
     public void setFreeze(Player p, boolean flag) {
-        freezeMap.put(p, flag);
+        if (freezeMap.containsKey(p)) {
+            freezeMap.replace(p, flag);
+        } else {
+            freezeMap.put(p, flag);
+        }
     }
     
     /**

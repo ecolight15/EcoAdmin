@@ -3,6 +3,7 @@ package jp.minecraftuser.ecoadmin.listener;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
@@ -47,33 +48,38 @@ public class TpseeListener extends ListenerFrame {
      * プレイヤーTpseeイベントハンドラ
      * @param e イベント
      */
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    @EventHandler(ignoreCancelled = false, priority = EventPriority.LOWEST)
     public void PlayerInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         // Tpsee動作
         if (!tpsee.containsKey(p)) return;
-        if (e.getAction() == Action.LEFT_CLICK_AIR) {
+        if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
             if (tpsee.get(p)) {
                 HashSet<Material> set = new HashSet<>();
                 set.add(Material.AIR);
-                for (Block b : p.getLineOfSight(set, 100)) {
-                    if (b.getType() != Material.AIR) {
-                        
-                        // 見つけたブロックの上を探す
-                        Block up1;
-                        Block up2;
-                        up1 = b.getRelative(BlockFace.UP);
-                        // 250ブロック上までにしておく
-                        for (int i = 0; i < 250; i++) {
-                            up2 = up1.getRelative(BlockFace.UP);
-                            if ((up1.getType() == Material.AIR) &&
-                                (up2.getType() == Material.AIR)) {
-                                // 見つけたのでテレポート
-                                p.teleport(up1.getLocation());
-                                break;
+                set.add(Material.CAVE_AIR);
+                set.add(Material.VOID_AIR);
+                List<Block> bset = p.getLineOfSight(set, 100); // 稀にNULLポが出るけとしばらくは気にしないことにする
+                if (bset != null) {
+                    for (Block b : bset) {
+                        if (!b.getType().equals(Material.AIR)) {
+
+                            // 見つけたブロックの上を探す
+                            Block up1;
+                            Block up2;
+                            up1 = b.getRelative(BlockFace.UP);
+                            // 250ブロック上までにしておく
+                            for (int i = 0; i < 250; i++) {
+                                up2 = up1.getRelative(BlockFace.UP);
+                                if ((up1.getType() == Material.AIR) &&
+                                    (up2.getType() == Material.AIR)) {
+                                    // 見つけたのでテレポート
+                                    p.teleport(up1.getLocation());
+                                    break;
+                                }
+                                // 見つからない場合up2をup1にして回す
+                                up1 = up2;
                             }
-                            // 見つからない場合up2をup1にして回す
-                            up1 = up2;
                         }
                     }
                 }

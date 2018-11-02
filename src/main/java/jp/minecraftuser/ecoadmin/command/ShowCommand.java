@@ -3,6 +3,7 @@ package jp.minecraftuser.ecoadmin.command;
 
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
+import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -43,9 +44,9 @@ public class ShowCommand extends CommandFrame {
         // ・mapで設定を記録、logout or showコマンドで設定解除、joinユーザーに対してhide実行させるのをそのうちやること
         // あと他プレイヤー指定対応も
         for (Player pl : plg.getServer().getOnlinePlayers()) {
-            pl.showPlayer(p);
+            pl.showPlayer(plg, p);
         }
-        sender.sendMessage("[" + plg.getName() + "] 他プレイヤーから見える状態になりました");
+        sendPluginMessage(plg, sender, "他プレイヤーから見える状態になりました");
         return true;
     }
     
