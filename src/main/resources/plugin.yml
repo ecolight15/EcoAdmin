@@ -8,6 +8,14 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin
+  eca reload:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.reload
+  eca test:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.test
   loc:
     description: EcoAdmin command.
     usage: /<command>
@@ -124,10 +132,6 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.stop
-  test:
-    description: EcoAdmin command.
-    usage: /<command>
-    permission: ecoadmin.test
     
 
     
