@@ -22,6 +22,7 @@ import jp.minecraftuser.ecoadmin.command.KillCommand;
 import jp.minecraftuser.ecoadmin.command.LocCommand;
 import jp.minecraftuser.ecoadmin.command.LockdownCommand;
 import jp.minecraftuser.ecoadmin.command.LoginCommand;
+import jp.minecraftuser.ecoadmin.command.PvPCommand;
 import jp.minecraftuser.ecoadmin.command.SetspawnCommand;
 import jp.minecraftuser.ecoadmin.command.ShowCommand;
 import jp.minecraftuser.ecoadmin.command.SpawnCommand;
@@ -187,6 +188,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new KillCommand(this, "kill"));
         registerPluginCommand(new KillCommand(this, "pkill"));
         registerPluginCommand(new LoginCommand(this, "login"));
+        registerPluginCommand(new PvPCommand(this, "pvp"));
         registerPluginCommand(new LockdownCommand(this, "lock"));
         registerPluginCommand(new UnLockdownCommand(this, "unlock"));
         registerPluginCommand(new StopCommand(this, "stop"));
