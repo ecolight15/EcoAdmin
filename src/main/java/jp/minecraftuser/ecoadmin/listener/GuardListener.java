@@ -17,19 +17,22 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.Drowned;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SkeletonHorse;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.EntityBlockFormEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
-import org.bukkit.material.MaterialData;
 
 /**
  * 保護系イベント処理リスナークラス
@@ -306,6 +309,39 @@ public class GuardListener extends ListenerFrame {
         if (conf.getBoolean("protection.create_hopper_cart.disable")) {
             if (e.getVehicle().getType() == EntityType.MINECART_HOPPER)
                 e.getVehicle().remove();
+        }
+    }
+
+    /**
+     * スポーンイベント
+     * @param e イベント
+     */
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void EntitySpawnEvent(EntitySpawnEvent e)
+    {
+        // ドラウンドの抑止判定
+        if (e.getEntity() instanceof Drowned) {
+            if (conf.getBoolean("spawn.drowned.disable")) {
+                if (conf.getArrayList("spawn.drowned.world_list").contains(e.getEntity().getWorld().getName())) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+        // ファントムの抑止判定
+        else if (e.getEntity() instanceof Phantom) {
+            if (conf.getBoolean("spawn.phantom.disable")) {
+                if (conf.getArrayList("spawn.phantom.world_list").contains(e.getEntity().getWorld().getName())) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+        // スケルトンホースの抑止判定
+        else if (e.getEntity() instanceof SkeletonHorse) {
+            if (conf.getBoolean("spawn.skeleton_horse.disable")) {
+                if (conf.getArrayList("spawn.skeleton_horse.world_list").contains(e.getEntity().getWorld().getName())) {
+                    e.setCancelled(true);
+                }
+            }
         }
     }
 

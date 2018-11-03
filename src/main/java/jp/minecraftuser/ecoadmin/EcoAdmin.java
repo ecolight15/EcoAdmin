@@ -145,6 +145,14 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerInt("util.auto_save.start_mergin");
         conf.registerBoolean("util.auto_save.broadcast_information");
 
+        // spawn
+        conf.registerBoolean("spawn.drowned.disable");
+        conf.registerArrayString("spawn.drowned.world_list");
+        conf.registerBoolean("spawn.phantom.disable");
+        conf.registerArrayString("spawn.phantom.world_list");
+        conf.registerBoolean("spawn.skeleton_horse.disable");
+        conf.registerArrayString("spawn.skeleton_horse.world_list");
+        
         registerPluginConfig(conf);
         
         // ログインメッセージコンフィグ
