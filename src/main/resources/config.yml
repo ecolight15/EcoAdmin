@@ -76,6 +76,25 @@ security:
     until_server_stop: false
     logging: true
     logfilename: "kick_reject.txt"
-    
+
+spawn:
+  drowned:
+    disable: false
+    world_list:
+      - world
+      - world_nether
+      - world_thr_end
+  phantom:
+    disable: false
+    world_list:
+      - world
+      - world_nether
+      - world_thr_end
+  skeleton_horse:
+    disable: false
+    world_list:
+      - world
+      - world_nether
+      - world_thr_end
     
     
