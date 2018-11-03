@@ -7,96 +7,127 @@ commands:
   eca:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin
   loc:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.loc
   heal:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.heal
   feed:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.feed
   clear:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.clear
   setspawn:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.setspawn
   spawn:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.spawn
   tp:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.tp
   tpp:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.tpp
   tphere:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.tphere
   tpsee:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.tpsee
   back:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.back
   strike:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.strike
   t:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.thor
   tpsv:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.tpsv
   ecban:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.ecban
   ecunban:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.ecunban
   freeze:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.freeze
   afk:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.afk
   fly:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.fly
   gm:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.gm
   hide:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.hide
   show:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.show
   kill:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.kill
   pkill:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.kill
   login:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.login
   pvp:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.pvp
   lock:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.lock
   unlock:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.unlock
   stop:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.stop
   test:
     description: EcoAdmin command.
     usage: /<command>
+    permission: ecoadmin.test
     
 
     
