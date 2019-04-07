@@ -247,7 +247,7 @@ public class GuardListener extends ListenerFrame {
             }
         }
     }
-
+    
     /**
      * プレイヤーインタラクトエンティティイベントハンドラ
      * @param e イベント

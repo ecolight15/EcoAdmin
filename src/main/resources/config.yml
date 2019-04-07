@@ -19,13 +19,13 @@ protection:
     world_list:
       - world
       - world_nether
-      - world_thr_end
+      - world_the_end
   chorus_fruit:
     disable: true
     world_list:
       - world
       - world_nether
-      - world_thr_end
+      - world_the_end
   create_hopper_cart:
     disable: true
   inventory:
@@ -83,18 +83,18 @@ spawn:
     world_list:
       - world
       - world_nether
-      - world_thr_end
+      - world_the_end
   phantom:
     disable: false
     world_list:
       - world
       - world_nether
-      - world_thr_end
+      - world_the_end
   skeleton_horse:
     disable: false
     world_list:
       - world
       - world_nether
-      - world_thr_end
+      - world_the_end
     
     
