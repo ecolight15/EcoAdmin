@@ -6,6 +6,7 @@ import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.mergeStrings;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -73,7 +74,13 @@ public class StopCommand extends CommandFrame {
                     case 0:
                         // カウント 0 でkickする
                         plg.getPluginCommand("lock").execute(sender, args);
+                        plg.getServer().savePlayers();
+                        plg.getServer().getWorlds().listIterator().forEachRemaining(World::save);
                         break;
+                    case -1: break;
+                    case -2: break;
+                    case -3: break;
+                    case -4: break;
                     case -5:
                         // タイマー停止とシャットダウン
                         runner.cancel();
