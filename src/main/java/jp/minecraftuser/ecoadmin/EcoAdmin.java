@@ -48,7 +48,7 @@ import jp.minecraftuser.ecoadmin.listener.TpseeListener;
 import jp.minecraftuser.ecoadmin.timer.CorrectionTimer;
 import jp.minecraftuser.ecoadmin.timer.SaveTimer;
 import jp.minecraftuser.ecoframework.LoggerFrame;
-
+import org.bukkit.Difficulty;
 /**
  * EcoAdminプラグインメインクラス
  * @author ecolight
@@ -61,6 +61,7 @@ public class EcoAdmin  extends PluginFrame {
     @Override
     public void onEnable() {
         initialize();
+        worldSetting();
     }
 
     /**
@@ -152,6 +153,25 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerArrayString("spawn.phantom.world_list");
         conf.registerBoolean("spawn.skeleton_horse.disable");
         conf.registerArrayString("spawn.skeleton_horse.world_list");
+
+        // difficulty
+        conf.registerString("difficulty.default");
+        conf.registerArrayString("difficulty.peaceful.world_list");
+        conf.registerString("difficulty.peaceful.world_prefix");
+        conf.registerArrayString("difficulty.easy.world_list");
+        conf.registerString("difficulty.easy.world_prefix");
+        conf.registerArrayString("difficulty.normal.world_list");
+        conf.registerString("difficulty.normal.world_prefix");
+        conf.registerArrayString("difficulty.hard.world_list");
+        conf.registerString("difficulty.hard.world_prefix");
+
+        // pvp
+        conf.registerBoolean("pvp.default");
+        conf.registerArrayString("pvp.true.world_list");
+        conf.registerString("pvp.true.world_prefix");
+        conf.registerArrayString("pvp.false.world_list");
+        conf.registerString("pvp.false.world_prefix");
+
         
         registerPluginConfig(conf);
         
@@ -261,5 +281,42 @@ public class EcoAdmin  extends PluginFrame {
         if (conf.getBoolean("protection.place.map.logging")) {
             registerPluginLogger(new LoggerFrame(this,  conf.getString("protection.place.map.logfilename"), "maprej"));
         }
+    }
+    private void worldSetting(){
+
+        ConfigFrame conf = getDefaultConfig();
+        getServer().getWorlds().forEach(world -> {
+
+            Difficulty difficulty = Difficulty.valueOf(conf.getString("difficulty.default").toUpperCase());
+
+            if (conf.getArrayList("difficulty.peaceful.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("difficulty.peaceful.world_prefix"))) {
+                difficulty =  Difficulty.PEACEFUL;
+            }else if (conf.getArrayList("difficulty.easy.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("difficulty.easy.world_prefix"))) {
+                difficulty =  Difficulty.EASY;
+            }else if (conf.getArrayList("difficulty.normal.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("difficulty.normal.world_prefix"))) {
+                difficulty =  Difficulty.NORMAL;
+            }else if (conf.getArrayList("difficulty.hard.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("difficulty.hard.world_prefix"))) {
+                difficulty =  Difficulty.HARD;
+            }
+            world.setDifficulty(difficulty);
+
+            boolean pvp =conf.getBoolean("pvp.default");
+
+            if (conf.getArrayList("pvp.true.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("pvp.true.world_prefix"))) {
+                pvp = true;
+            }else if (conf.getArrayList("pvp.false.world_list").contains(world.getName())
+                    || world.getName().startsWith(conf.getString("pvp.false.world_prefix"))) {
+                pvp = false;
+            }
+            world.setPVP(pvp);
+
+        });
+
+
     }
 }

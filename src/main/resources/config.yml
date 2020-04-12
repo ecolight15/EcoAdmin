@@ -96,5 +96,34 @@ spawn:
       - world
       - world_nether
       - world_the_end
-    
-    
+
+difficulty:
+  default: normal
+  peaceful:
+    world_list:
+      - world
+    world_prefix: "none"
+  easy:
+    world_list:
+      - none
+    world_prefix: "none"
+  normal:
+    world_list:
+      - none
+    world_prefix: "none"
+  hard:
+    world_list:
+      - none
+    world_prefix: "none"
+
+pvp:
+  default: false
+  true:
+    world_list:
+      - pvp01
+    world_prefix: "none"
+  false:
+    world_list:
+      - none
+    world_prefix: "none"
+
