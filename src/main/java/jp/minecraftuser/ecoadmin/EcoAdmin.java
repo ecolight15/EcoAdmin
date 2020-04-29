@@ -1,6 +1,7 @@
 
 package jp.minecraftuser.ecoadmin;
 
+import java.util.logging.Level;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.ConfigFrame;
@@ -155,22 +156,20 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerArrayString("spawn.skeleton_horse.world_list");
 
         // difficulty
-        conf.registerString("difficulty.default");
         conf.registerArrayString("difficulty.peaceful.world_list");
-        conf.registerString("difficulty.peaceful.world_prefix");
+        conf.registerArrayString("difficulty.peaceful.world_prefix");
         conf.registerArrayString("difficulty.easy.world_list");
-        conf.registerString("difficulty.easy.world_prefix");
+        conf.registerArrayString("difficulty.easy.world_prefix");
         conf.registerArrayString("difficulty.normal.world_list");
-        conf.registerString("difficulty.normal.world_prefix");
+        conf.registerArrayString("difficulty.normal.world_prefix");
         conf.registerArrayString("difficulty.hard.world_list");
-        conf.registerString("difficulty.hard.world_prefix");
+        conf.registerArrayString("difficulty.hard.world_prefix");
 
         // pvp
-        conf.registerBoolean("pvp.default");
         conf.registerArrayString("pvp.true.world_list");
-        conf.registerString("pvp.true.world_prefix");
+        conf.registerArrayString("pvp.true.world_prefix");
         conf.registerArrayString("pvp.false.world_list");
-        conf.registerString("pvp.false.world_prefix");
+        conf.registerArrayString("pvp.false.world_prefix");
 
         
         registerPluginConfig(conf);
@@ -282,41 +281,66 @@ public class EcoAdmin  extends PluginFrame {
             registerPluginLogger(new LoggerFrame(this,  conf.getString("protection.place.map.logfilename"), "maprej"));
         }
     }
+
+    /**
+     * 全ワールドの設定変更
+     */
     private void worldSetting(){
 
         ConfigFrame conf = getDefaultConfig();
         getServer().getWorlds().forEach(world -> {
 
-            Difficulty difficulty = Difficulty.valueOf(conf.getString("difficulty.default").toUpperCase());
-
-            if (conf.getArrayList("difficulty.peaceful.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("difficulty.peaceful.world_prefix"))) {
-                difficulty =  Difficulty.PEACEFUL;
-            }else if (conf.getArrayList("difficulty.easy.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("difficulty.easy.world_prefix"))) {
-                difficulty =  Difficulty.EASY;
-            }else if (conf.getArrayList("difficulty.normal.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("difficulty.normal.world_prefix"))) {
-                difficulty =  Difficulty.NORMAL;
-            }else if (conf.getArrayList("difficulty.hard.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("difficulty.hard.world_prefix"))) {
-                difficulty =  Difficulty.HARD;
+            // 難易度設定
+            Difficulty difficulty = null;
+            if (conf.getArrayList("difficulty.peaceful.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("difficulty.peaceful.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        difficulty =  Difficulty.PEACEFUL;
+                    }
+                }
+            } else if (conf.getArrayList("difficulty.easy.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("difficulty.easy.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        difficulty =  Difficulty.EASY;
+                    }
+                }
+            } else if (conf.getArrayList("difficulty.normal.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("difficulty.normal.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        difficulty =  Difficulty.NORMAL;
+                    }
+                }
+            } else if (conf.getArrayList("difficulty.hard.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("difficulty.hard.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        difficulty =  Difficulty.HARD;
+                    }
+                }
             }
-            world.setDifficulty(difficulty);
-
-            boolean pvp =conf.getBoolean("pvp.default");
-
-            if (conf.getArrayList("pvp.true.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("pvp.true.world_prefix"))) {
-                pvp = true;
-            }else if (conf.getArrayList("pvp.false.world_list").contains(world.getName())
-                    || world.getName().startsWith(conf.getString("pvp.false.world_prefix"))) {
-                pvp = false;
+            if (difficulty != null) {
+                world.setDifficulty(difficulty);
+                log.log(Level.INFO, "Set {0} difficulty to {1}", new Object[]{world.getName(), difficulty.name()});
             }
-            world.setPVP(pvp);
 
+            // PvP設定
+            Boolean pvp = null;
+            if (conf.getArrayList("pvp.true.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("pvp.true.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        pvp = true;
+                    }
+                }
+            } else if (conf.getArrayList("pvp.false.world_list").contains(world.getName())) {
+                for (String name : conf.getArrayList("pvp.false.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        pvp = false;
+                    }
+                }
+            }
+            if (pvp != null) {
+                world.setPVP(pvp);
+                log.log(Level.INFO, "Set {0} pvp setting to {1}", new Object[]{world.getName(), pvp.booleanValue()});
+            }
         });
-
-
     }
 }
