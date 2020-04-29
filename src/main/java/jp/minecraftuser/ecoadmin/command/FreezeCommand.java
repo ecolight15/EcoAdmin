@@ -71,7 +71,7 @@ public class FreezeCommand extends CommandFrame {
                     sendPluginMessage(plg, sender, "指定したプレイヤー[{0}]は見つかりませんでした", args[0]);
                 }
             } else {
-                sendPluginMessage(plg, sender, "他人指定のコマンド使用権原がありません");
+                sendPluginMessage(plg, sender, "他人指定のコマンド使用権限がありません");
             }
         } else {
             // 自分指定
