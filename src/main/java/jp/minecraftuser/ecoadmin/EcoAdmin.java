@@ -293,27 +293,42 @@ public class EcoAdmin  extends PluginFrame {
             // 難易度設定
             Difficulty difficulty = null;
             if (conf.getArrayList("difficulty.peaceful.world_list").contains(world.getName())) {
+                difficulty =  Difficulty.PEACEFUL;
+            } else if (conf.getArrayList("difficulty.easy.world_list").contains(world.getName())) {
+                difficulty =  Difficulty.EASY;
+            } else if (conf.getArrayList("difficulty.normal.world_list").contains(world.getName())) {
+                difficulty =  Difficulty.NORMAL;
+            } else if (conf.getArrayList("difficulty.hard.world_list").contains(world.getName())) {
+                difficulty =  Difficulty.HARD;
+            } else {
                 for (String name : conf.getArrayList("difficulty.peaceful.world_prefix")) {
                     if (world.getName().startsWith(name)) {
                         difficulty =  Difficulty.PEACEFUL;
+                        break;
                     }
                 }
-            } else if (conf.getArrayList("difficulty.easy.world_list").contains(world.getName())) {
-                for (String name : conf.getArrayList("difficulty.easy.world_prefix")) {
-                    if (world.getName().startsWith(name)) {
-                        difficulty =  Difficulty.EASY;
+                if (difficulty == null) {
+                    for (String name : conf.getArrayList("difficulty.easy.world_prefix")) {
+                        if (world.getName().startsWith(name)) {
+                            difficulty =  Difficulty.EASY;
+                            break;
+                        }
                     }
                 }
-            } else if (conf.getArrayList("difficulty.normal.world_list").contains(world.getName())) {
-                for (String name : conf.getArrayList("difficulty.normal.world_prefix")) {
-                    if (world.getName().startsWith(name)) {
-                        difficulty =  Difficulty.NORMAL;
+                if (difficulty == null) {
+                    for (String name : conf.getArrayList("difficulty.normal.world_prefix")) {
+                        if (world.getName().startsWith(name)) {
+                            difficulty =  Difficulty.NORMAL;
+                            break;
+                        }
                     }
                 }
-            } else if (conf.getArrayList("difficulty.hard.world_list").contains(world.getName())) {
-                for (String name : conf.getArrayList("difficulty.hard.world_prefix")) {
-                    if (world.getName().startsWith(name)) {
-                        difficulty =  Difficulty.HARD;
+                if (difficulty == null) {
+                    for (String name : conf.getArrayList("difficulty.hard.world_prefix")) {
+                        if (world.getName().startsWith(name)) {
+                            difficulty =  Difficulty.HARD;
+                            break;
+                        }
                     }
                 }
             }
@@ -325,15 +340,22 @@ public class EcoAdmin  extends PluginFrame {
             // PvP設定
             Boolean pvp = null;
             if (conf.getArrayList("pvp.true.world_list").contains(world.getName())) {
+                pvp = true;
+            } else if (conf.getArrayList("pvp.false.world_list").contains(world.getName())) {
+                pvp = false;
+            } else {
                 for (String name : conf.getArrayList("pvp.true.world_prefix")) {
                     if (world.getName().startsWith(name)) {
                         pvp = true;
+                        break;
                     }
                 }
-            } else if (conf.getArrayList("pvp.false.world_list").contains(world.getName())) {
-                for (String name : conf.getArrayList("pvp.false.world_prefix")) {
-                    if (world.getName().startsWith(name)) {
-                        pvp = false;
+                if (pvp == null) {
+                    for (String name : conf.getArrayList("pvp.false.world_prefix")) {
+                        if (world.getName().startsWith(name)) {
+                            pvp = false;
+                            break;
+                        }
                     }
                 }
             }
