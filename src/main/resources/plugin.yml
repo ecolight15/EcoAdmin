@@ -2,7 +2,8 @@ name: EcoAdmin
 main: jp.minecraftuser.ecoadmin.EcoAdmin
 version: ${project.version}
 depend: [EcoFramework]
-api-version: 1.13
+softdepend: [EcoGate]
+api-version: 1.15
 commands:
   eca:
     description: EcoAdmin command.

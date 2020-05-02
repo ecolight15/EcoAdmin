@@ -66,8 +66,8 @@ public class EcaTestCommand extends CommandFrame {
         sendPluginMessage(plg, sender, "Block light level=" + b.getLightLevel());
         sendPluginMessage(plg, sender, "Block temperature=" + b.getTemperature());
         PlayerInventory ii = p.getInventory();
-        sendPluginMessage(plg, sender, "Item inventory name=" + ii.getName());
-        sendPluginMessage(plg, sender, "Item inventory title=" + ii.getTitle());
+//        sendPluginMessage(plg, sender, "Item inventory name=" + ii.getName());
+//        sendPluginMessage(plg, sender, "Item inventory title=" + ii.getTitle());
         if (ii.getType() != null) sendPluginMessage(plg, sender, "Item inventory type name=" + ii.getType().name());
         if (ii.getType() != null) sendPluginMessage(plg, sender, "Item inventory default name=" + ii.getType().getDefaultTitle());
         if (ii.getHelmet() != null) sendPluginMessage(plg, sender, "Player helmet=" + ii.getHelmet().getType());

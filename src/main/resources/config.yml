@@ -96,7 +96,6 @@ spawn:
       - world
       - world_nether
       - world_the_end
-
 difficulty:
   peaceful:
     world_list:
@@ -118,7 +117,6 @@ difficulty:
       - none
     world_prefix:
       - none
-
 pvp:
   true:
     world_list:
@@ -130,3 +128,15 @@ pvp:
       - none
     world_prefix:
       - none
+gamerule:
+  disableRaids:
+    true:
+      world_list:
+        - none
+      world_prefix:
+        - none
+    false:
+      world_list:
+        - none
+      world_prefix:
+        - none

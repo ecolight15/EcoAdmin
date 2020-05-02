@@ -50,6 +50,7 @@ import jp.minecraftuser.ecoadmin.timer.CorrectionTimer;
 import jp.minecraftuser.ecoadmin.timer.SaveTimer;
 import jp.minecraftuser.ecoframework.LoggerFrame;
 import org.bukkit.Difficulty;
+import org.bukkit.GameRule;
 /**
  * EcoAdminプラグインメインクラス
  * @author ecolight
@@ -170,6 +171,12 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerArrayString("pvp.true.world_prefix");
         conf.registerArrayString("pvp.false.world_list");
         conf.registerArrayString("pvp.false.world_prefix");
+
+        // ganerule:disableRaids
+        conf.registerArrayString("gamerule.disableRaids.true.world_list");
+        conf.registerArrayString("gamerule.disableRaids.true.world_prefix");
+        conf.registerArrayString("gamerule.disableRaids.false.world_list");
+        conf.registerArrayString("gamerule.disableRaids.false.world_prefix");
 
         
         registerPluginConfig(conf);
@@ -362,6 +369,33 @@ public class EcoAdmin  extends PluginFrame {
             if (pvp != null) {
                 world.setPVP(pvp);
                 log.log(Level.INFO, "Set {0} pvp setting to {1}", new Object[]{world.getName(), pvp.booleanValue()});
+            }
+
+            // ゲームルール：レイド無効設定
+            Boolean raid = null;
+            if (conf.getArrayList("gamerule.disableRaids.true.world_list").contains(world.getName())) {
+                raid = true;
+            } else if (conf.getArrayList("gamerule.disableRaids.false.world_list").contains(world.getName())) {
+                raid = false;
+            } else {
+                for (String name : conf.getArrayList("gamerule.disableRaids.true.world_prefix")) {
+                    if (world.getName().startsWith(name)) {
+                        raid = true;
+                        break;
+                    }
+                }
+                if (raid == null) {
+                    for (String name : conf.getArrayList("gamerule.disableRaids.false.world_prefix")) {
+                        if (world.getName().startsWith(name)) {
+                            raid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (raid != null) {
+                world.setGameRule(GameRule.DISABLE_RAIDS, raid);
+                log.log(Level.INFO, "Set {0} disableRaids setting to {1}", new Object[]{world.getName(), raid.booleanValue()});
             }
         });
     }
