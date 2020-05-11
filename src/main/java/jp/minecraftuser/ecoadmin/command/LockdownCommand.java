@@ -57,7 +57,7 @@ public class LockdownCommand extends CommandFrame {
                 p.kickPlayer(lockmsg);
             }
         }
-        ((PlayerConnectionListener)plg.getPluginListerner("plconnection")).setServerLockdown(lockmsg);
+        ((PlayerConnectionListener)plg.getPluginListener("plconnection")).setServerLockdown(lockmsg);
         
         sendPluginMessage(plg, sender, "サーバーを次の理由でロックダウンしました");
         sendPluginMessage(plg, sender, lockmsg);

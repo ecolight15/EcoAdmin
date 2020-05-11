@@ -39,7 +39,7 @@ public class TpseeCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
-        ((TpseeListener)plg.getPluginListerner("tpsee")).toggleTpsee((Player) sender);
+        ((TpseeListener)plg.getPluginListener("tpsee")).toggleTpsee((Player) sender);
         return true;
     }
     

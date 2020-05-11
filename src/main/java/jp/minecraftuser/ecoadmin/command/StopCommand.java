@@ -55,7 +55,7 @@ public class StopCommand extends CommandFrame {
             }
             runner.cancel();
             runner = null;
-            ((PlayerConnectionListener)plg.getPluginListerner("plconnection")).setServerLockdown(null);
+            ((PlayerConnectionListener)plg.getPluginListener("plconnection")).setServerLockdown(null);
             sendPluginMessage(plg, null, lockmsg);
             return true;
         }

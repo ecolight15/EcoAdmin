@@ -45,7 +45,7 @@ public class FreezeCommand extends CommandFrame {
         // パラメータチェック:0～1まで
         if (!checkRange(sender, args, 0, 1)) return true;
         
-        PlayerFreezeListener pl = (PlayerFreezeListener) plg.getPluginListerner("plfreeze");
+        PlayerFreezeListener pl = (PlayerFreezeListener) plg.getPluginListener("plfreeze");
         
         if (args.length >= 1) {
             // 他プレイヤー指定
