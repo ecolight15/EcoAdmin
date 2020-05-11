@@ -9,6 +9,12 @@ util:
     interval_tick: 6000
     start_mergin: 6000
     broadcast_information: true
+  afk:
+    enable: true
+    interval_tick: 600
+    start_mergin: 6000
+    limit_milliseconds: 300000
+    kick_message: 'You have been disconnected for inactivity'
 fun:
   handshake_item_exchange: true
   sign_colorcode_convert: true
