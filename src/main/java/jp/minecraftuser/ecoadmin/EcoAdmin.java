@@ -46,6 +46,7 @@ import jp.minecraftuser.ecoadmin.listener.PlayerHandShakeListener;
 import jp.minecraftuser.ecoadmin.listener.PlayerTeleportListener;
 import jp.minecraftuser.ecoadmin.listener.SignListener;
 import jp.minecraftuser.ecoadmin.listener.TpseeListener;
+import jp.minecraftuser.ecoadmin.timer.AfkTimer;
 import jp.minecraftuser.ecoadmin.timer.CorrectionTimer;
 import jp.minecraftuser.ecoadmin.timer.SaveTimer;
 import jp.minecraftuser.ecoframework.LoggerFrame;
@@ -147,6 +148,13 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerInt("util.auto_save.interval_tick");
         conf.registerInt("util.auto_save.start_mergin");
         conf.registerBoolean("util.auto_save.broadcast_information");
+        
+        // afk
+        conf.registerBoolean("util.afk.enable");
+        conf.registerInt("util.afk.interval_tick");
+        conf.registerInt("util.afk.start_mergin");
+        conf.registerLong("util.afk.limit_milliseconds");
+        conf.registerString("util.afk.kick_message");
 
         // spawn
         conf.registerBoolean("spawn.drowned.disable");
@@ -250,6 +258,7 @@ public class EcoAdmin  extends PluginFrame {
     public void initializeTimer() {
         registerPluginTimer(new CorrectionTimer(this, "correction"));
         registerPluginTimer(new SaveTimer(this, "save"));
+        registerPluginTimer(new AfkTimer(this, "afk"));
 
         // TPS測定タイマー起動
         runTaskTimer("correction", 0L, 50L);            // 現在から2.5秒間隔 
@@ -260,6 +269,12 @@ public class EcoAdmin  extends PluginFrame {
             runTaskTimer("save",
                     conf.getInt("util.auto_save.start_mergin"),
                     conf.getInt("util.auto_save.interval_tick"));
+        }
+        // AFKタイマー
+        if (conf.getBoolean("util.afk.enable")) {
+            runTaskTimer("afk",
+                    conf.getInt("util.afk.start_mergin"),
+                    conf.getInt("util.afk.interval_tick"));
         }
     }
 

@@ -10,7 +10,7 @@ import org.bukkit.World;
  * @author ecolight
  */
 public class SaveTimer extends TimerFrame {
-    private boolean isBroadcast;
+    private final boolean isBroadcast;
     /**
      * コンストラクタ
      * @param plg_ プラグインインスタンス

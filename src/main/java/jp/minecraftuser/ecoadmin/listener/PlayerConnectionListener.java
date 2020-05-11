@@ -63,15 +63,21 @@ public class PlayerConnectionListener extends ListenerFrame {
             Utl.sendPluginMessage(plg, null, "プレイヤー[{0}]は、次の理由でサーバーから強制切断されました。", p.getName());
             Utl.sendPluginMessage(plg, null, s);
 
-            if (conf.getBoolean("security.kick.reason_announce_plus_host")) {
-                Utl.sendPluginMessage(plg, null, "host:[{0}]", host);
+            // AFKメッセージの場合はホスト表示しない
+            if (!s.equalsIgnoreCase("util.afk.kick_message")) {
+                if (conf.getBoolean("security.kick.reason_announce_plus_host")) {
+                    Utl.sendPluginMessage(plg, null, "host:[{0}]", host);
+                }
             }
         }
 
         // キックしたユーザーをしばらくログインさせない場合はリストに登録しておきLOGINイベント時に照合する
-        if (conf.getBoolean("security.kick.until_server_stop")) {
-            if (!denylist.contains(p.getAddress().getAddress().getHostAddress())) {
-                denylist.add(p.getAddress().getAddress().getHostAddress());
+        // AFKユーザーは対象外
+        if (!s.equalsIgnoreCase("util.afk.kick_message")) {
+            if (conf.getBoolean("security.kick.until_server_stop")) {
+                if (!denylist.contains(p.getAddress().getAddress().getHostAddress())) {
+                    denylist.add(p.getAddress().getAddress().getHostAddress());
+                }
             }
         }
 
