@@ -58,22 +58,33 @@ public class PlayerConnectionListener extends ListenerFrame {
         Player p = e.getPlayer();
         String s = e.getReason();
         String host = p.getPlayer().getAddress().getAddress().toString();
+        
+        // ホスト表示除外、ログイン抑止の対象外かどうかチェックする
+        boolean hit = false;
+        for (String ignore : conf.getArrayList("security.kick.ignore_reason_announce")) {
+            if (ignore.equals(s)) {
+                hit = true;
+                break;
+            }
+        }
+        if (s.equalsIgnoreCase(conf.getString("util.afk.kick_message"))) hit = true;
+
         // KICK時の通知が有効であればブロードキャスト通報する
         if (conf.getBoolean("security.kick.reason_announce")) {
             Utl.sendPluginMessage(plg, null, "プレイヤー[{0}]は、次の理由でサーバーから強制切断されました。", p.getName());
             Utl.sendPluginMessage(plg, null, s);
-
-            // AFKメッセージの場合はホスト表示しない
-            if (!s.equalsIgnoreCase("util.afk.kick_message")) {
+            if (!hit) {
                 if (conf.getBoolean("security.kick.reason_announce_plus_host")) {
-                    Utl.sendPluginMessage(plg, null, "host:[{0}]", host);
+                    // その他表示対象外の指定があれば表示しない
+                    if (!hit) {
+                        Utl.sendPluginMessage(plg, null, "host:[{0}]", host);
+                    }
                 }
             }
         }
 
         // キックしたユーザーをしばらくログインさせない場合はリストに登録しておきLOGINイベント時に照合する
-        // AFKユーザーは対象外
-        if (!s.equalsIgnoreCase("util.afk.kick_message")) {
+        if (!hit) {
             if (conf.getBoolean("security.kick.until_server_stop")) {
                 if (!denylist.contains(p.getAddress().getAddress().getHostAddress())) {
                     denylist.add(p.getAddress().getAddress().getHostAddress());

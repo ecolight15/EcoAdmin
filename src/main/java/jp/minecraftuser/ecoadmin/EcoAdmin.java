@@ -125,6 +125,7 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerBoolean("security.logout.forced_takedown_from_vehicle");
         conf.registerBoolean("security.kick.reason_announce");
         conf.registerBoolean("security.kick.reason_announce_plus_host");
+        conf.registerArrayString("security.kick.ignore_reason_announce");
         conf.registerBoolean("security.kick.until_server_stop");
         conf.registerBoolean("security.kick.logging");
         conf.registerString("security.kick.logfilename");

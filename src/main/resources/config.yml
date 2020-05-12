@@ -79,6 +79,8 @@ security:
   kick:
     reason_announce: true
     reason_announce_plus_host: true
+    ignore_reason_announce:
+      - none
     until_server_stop: false
     logging: true
     logfilename: "kick_reject.txt"
