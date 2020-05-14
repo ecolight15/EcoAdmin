@@ -3,7 +3,6 @@ package jp.minecraftuser.ecoadmin.timer;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Level;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.TimerFrame;
 import org.bukkit.Location;
@@ -36,7 +35,6 @@ public class AfkTimer extends TimerFrame {
         // オンラインユーザーを全員走査し、規定時間を超えていたらkickする
         long now = Calendar.getInstance().getTime().getTime();
         for (Player p : plg.getServer().getOnlinePlayers()) {
-            log.log(Level.INFO, "check player = " + p);
             if (afkmap.containsKey(p.getUniqueId())) {
                 // ロケーションチェック
                 // 元の位置と変化がない場合のみ時間のチェックをする
