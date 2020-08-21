@@ -36,6 +36,7 @@ import jp.minecraftuser.ecoadmin.command.TppCommand;
 import jp.minecraftuser.ecoadmin.command.TpseeCommand;
 import jp.minecraftuser.ecoadmin.command.TpsvCommand;
 import jp.minecraftuser.ecoadmin.command.UnLockdownCommand;
+import jp.minecraftuser.ecoadmin.command.WorldRuleCommand;
 import jp.minecraftuser.ecoadmin.config.EcoAdminConfig;
 import jp.minecraftuser.ecoadmin.config.LoginMsgConfig;
 import jp.minecraftuser.ecoadmin.listener.DeathListener;
@@ -235,6 +236,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new LockdownCommand(this, "lock"));
         registerPluginCommand(new UnLockdownCommand(this, "unlock"));
         registerPluginCommand(new StopCommand(this, "stop"));
+        registerPluginCommand(new WorldRuleCommand(this, "wrule"));
     }
 
     /**

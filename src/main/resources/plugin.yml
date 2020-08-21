@@ -133,6 +133,10 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.stop
+  wrule:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.worldrule
     
 
     
