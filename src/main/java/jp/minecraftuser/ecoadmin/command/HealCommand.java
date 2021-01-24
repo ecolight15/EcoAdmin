@@ -1,9 +1,12 @@
 
 package jp.minecraftuser.ecoadmin.command;
 
+import java.util.ArrayList;
+import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -117,5 +120,26 @@ public class HealCommand extends CommandFrame {
         sendPluginMessage(plg, sender, "プレイヤー[{0}]のHealthLevelを{1}に設定しました", p.getName(), Integer.toString((int) p.getHealth()));
         return true;
     }
-    
+    /**
+     * コマンド別タブコンプリート処理
+     * @param sender コマンド送信者インスタンス
+     * @param cmd コマンドインスタンス
+     * @param string コマンド文字列
+     * @param strings パラメタ文字列配列
+     * @return 保管文字列配列
+     */
+    @Override
+    protected List<String> getTabComplete(CommandSender sender, Command cmd, String string, String[] strings) {
+        ArrayList<String> list = new ArrayList<>();
+        if (strings.length == 1) {
+            for (Player p : plg.getServer().getOnlinePlayers()) {
+                list.add(p.getName());
+            }
+            list.add("<num>");
+        } else if (strings.length == 2) {
+            list.add("<num>");
+        }
+        return list;
+    }
+
 }

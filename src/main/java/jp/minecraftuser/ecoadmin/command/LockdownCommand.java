@@ -1,11 +1,14 @@
 
 package jp.minecraftuser.ecoadmin.command;
 
+import java.util.ArrayList;
+import java.util.List;
 import jp.minecraftuser.ecoadmin.listener.PlayerConnectionListener;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.mergeStrings;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -63,5 +66,22 @@ public class LockdownCommand extends CommandFrame {
         sendPluginMessage(plg, sender, lockmsg);
         return true;
     }
-    
+
+    /**
+     * コマンド別タブコンプリート処理
+     * @param sender コマンド送信者インスタンス
+     * @param cmd コマンドインスタンス
+     * @param string コマンド文字列
+     * @param strings パラメタ文字列配列
+     * @return 保管文字列配列
+     */
+    @Override
+    protected List<String> getTabComplete(CommandSender sender, Command cmd, String string, String[] strings) {
+        ArrayList<String> list = new ArrayList<>();
+        if (strings.length == 1) {
+            list.add("<reason of lockdown>");
+        }
+        return list;
+    }
+
 }

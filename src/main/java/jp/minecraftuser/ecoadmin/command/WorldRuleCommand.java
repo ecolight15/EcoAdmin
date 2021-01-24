@@ -1,14 +1,18 @@
 
 package jp.minecraftuser.ecoadmin.command;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.Utl;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * loginコマンドクラス
@@ -113,5 +117,23 @@ public class WorldRuleCommand extends CommandFrame {
 
         return true;
     }
-    
+    /**
+     * コマンド別タブコンプリート処理
+     * @param sender コマンド送信者インスタンス
+     * @param cmd コマンドインスタンス
+     * @param string コマンド文字列
+     * @param strings パラメタ文字列配列
+     * @return 保管文字列配列
+     */
+    @Override
+    protected List<String> getTabComplete(CommandSender sender, Command cmd, String string, String[] strings) {
+        ArrayList<String> list = new ArrayList<>();
+        if (strings.length == 1) {
+            for (World w : plg.getServer().getWorlds()) {
+                list.add(w.getName());
+            }
+        }
+        return list;
+    }
+
 }
