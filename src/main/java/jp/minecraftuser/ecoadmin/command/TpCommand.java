@@ -85,7 +85,9 @@ public class TpCommand extends CommandFrame {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
             for (Player p : plg.getServer().getOnlinePlayers()) {
-                list.add(p.getName());
+                if (p.getName().toLowerCase().startsWith(strings[0].toLowerCase())) {
+                    list.add(p.getName());
+                }
             }
         } else if (strings.length == 2) {
                 list.add("[height]");
