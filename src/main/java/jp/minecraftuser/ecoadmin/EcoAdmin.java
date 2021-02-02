@@ -2,6 +2,8 @@
 package jp.minecraftuser.ecoadmin;
 
 import java.util.logging.Level;
+
+import jp.minecraftuser.ecoadmin.command.LookCommand;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.ConfigFrame;
@@ -150,7 +152,7 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerInt("util.auto_save.interval_tick");
         conf.registerInt("util.auto_save.start_mergin");
         conf.registerBoolean("util.auto_save.broadcast_information");
-        
+
         // afk
         conf.registerBoolean("util.afk.enable");
         conf.registerInt("util.afk.interval_tick");
@@ -188,14 +190,14 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerArrayString("gamerule.disableRaids.false.world_list");
         conf.registerArrayString("gamerule.disableRaids.false.world_prefix");
 
-        
+
         registerPluginConfig(conf);
-        
+
         // ログインメッセージコンフィグ
         conf = new LoginMsgConfig(this, "loginmsg.yml", "login");
         conf.registerArrayString("msg");
         registerPluginConfig(conf);
-        
+
     }
 
     /**
@@ -237,6 +239,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new UnLockdownCommand(this, "unlock"));
         registerPluginCommand(new StopCommand(this, "stop"));
         registerPluginCommand(new WorldRuleCommand(this, "wrule"));
+        registerPluginCommand(new LookCommand(this, "look"));
     }
 
     /**
