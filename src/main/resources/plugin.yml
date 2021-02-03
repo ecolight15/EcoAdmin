@@ -137,7 +137,11 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.worldrule
-    
+  look:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.look
+
 
     
     
