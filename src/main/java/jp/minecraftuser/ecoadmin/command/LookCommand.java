@@ -101,11 +101,12 @@ public class LookCommand extends CommandFrame {
                 player.teleport(playerLoc);
                 player.setVelocity(velocity);
                 // 結果通知
-                sendPluginMessage(plg, sender, "ユーザー[{0}]の方向を向きました world[{1}] X[{2}] Y[{3}] Z[{4}] 距離[{5}m] 水平距離[{6}m]",
+                sendPluginMessage(plg, sender, "ユーザー[{0}]の方向を向きました world[{1}] X[{2}] Y[{3}] Z[{4}] 距離[{5}m] 水平距離[{6}m] 到達予想時間[{7}s]",
                         target.getName(), targetLoc.getWorld().getName(),
                         Integer.toString(targetLoc.getBlockX()), Integer.toString(targetLoc.getBlockY()), Integer.toString(targetLoc.getBlockZ()),
                         String.format("%.1f", distance),
-                        String.format("%.1f", surfaceDistance)
+                        String.format("%.1f", surfaceDistance),
+                        String.format("%.1f", surfaceDistance/33.66)
                 );
 
             } else {
