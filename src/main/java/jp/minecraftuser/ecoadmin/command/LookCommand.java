@@ -90,6 +90,7 @@ public class LookCommand extends CommandFrame {
                 Double surfaceDistance = targetSurfaceLoc.distance(playerSurfaceLoc);
 
                 Vector vector = targetLoc.toVector().subtract(playerLoc.toVector());
+                Vector velocity= player.getVelocity();
                 playerLoc.setDirection(vector);
 
                 if (arg.equals("") || arg.equals("0")) {
@@ -98,6 +99,7 @@ public class LookCommand extends CommandFrame {
                 }
 
                 player.teleport(playerLoc);
+                player.setVelocity(velocity);
                 // 結果通知
                 sendPluginMessage(plg, sender, "ユーザー[{0}]の方向を向きました world[{1}] X[{2}] Y[{3}] Z[{4}] 距離[{5}m] 水平距離[{6}m]",
                         target.getName(), targetLoc.getWorld().getName(),
