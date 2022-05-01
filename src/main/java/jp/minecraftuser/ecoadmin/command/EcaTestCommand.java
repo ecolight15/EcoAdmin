@@ -1,6 +1,8 @@
 
 package jp.minecraftuser.ecoadmin.command;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
@@ -8,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 /**
@@ -78,8 +81,20 @@ public class EcaTestCommand extends CommandFrame {
         if (ii.getItemInMainHand() != null) sendPluginMessage(plg, sender, "Player main hand string=" + ii.getItemInMainHand().toString());
         if (ii.getItemInOffHand() != null) sendPluginMessage(plg, sender, "Player off hand type=" + ii.getItemInOffHand().getType());
         if (ii.getItemInOffHand() != null) sendPluginMessage(plg, sender, "Player off hand string=" + ii.getItemInOffHand().toString());
-        
+        for(ItemStack i : ((Player)sender).getInventory().getContents()) {
+            if (i != null) {
+                printItemStack(sender, i.serialize());
+            }
+        }
         return true;
     }
-    
+    void printItemStack(CommandSender sender, Map<String, Object> objs) {
+        for (Entry<String, Object> e : objs.entrySet()) {
+            if (e.getValue() instanceof String) {
+                sendPluginMessage(plg, sender, "k[" + e.getKey() + "]v[" + e.getValue() + "]");
+            } else if (e.getValue() instanceof Map) {
+                printItemStack(sender, (Map<String, Object>)e.getValue());
+            }
+        }
+    }
 }
