@@ -62,11 +62,15 @@ public class FlyCommand extends CommandFrame {
                         target.setAllowFlight(true);
                         target.setFlying(true);
                         sendPluginMessage(plg, target, "プレイヤー[{0}]に飛行権限を付与されました", sender.getName());
+                        /// @todo { 10周年記念仕様 }
+//                        sendPluginMessage(plg, null, "プレイヤー[{0}]に飛行権限を付与しました", target.getName());
                         sendPluginMessage(plg, sender, "プレイヤー[{0}]に飛行権限を付与しました", target.getName());
                     } else {
                         target.setFlying(false);
                         target.setAllowFlight(false);
                         sendPluginMessage(plg, target, "プレイヤー[{0}]によって飛行権限が解除されました", sender.getName());
+                        /// @todo { 10周年記念仕様 }
+//                        sendPluginMessage(plg, null, "プレイヤー[{0}]の飛行権限を解除しました", target.getName());
                         sendPluginMessage(plg, sender, "プレイヤー[{0}]の飛行権限を解除しました", target.getName());
                     }
                 } else {
@@ -84,11 +88,15 @@ public class FlyCommand extends CommandFrame {
                 if (!p.getAllowFlight()) {
                     p.setAllowFlight(true);
                     p.setFlying(true);
+                    /// @todo { 10周年記念仕様 }
+//                    sendPluginMessage(plg, null, "プレイヤー[{0}]に飛行権限を付与しました", p.getName());
                     sendPluginMessage(plg, p, "プレイヤー[{0}]に飛行権限を付与しました", p.getName());
                 } else {
                     p.setFlying(false);
                     p.setAllowFlight(false);
-                    sendPluginMessage(plg, p, "プレイヤー[{0}]に飛行権限を付与しました", p.getName());
+                    /// @todo { 10周年記念仕様 }
+//                    sendPluginMessage(plg, null, "プレイヤー[{0}]に飛行権限を解除しました", p.getName());
+                    sendPluginMessage(plg, p, "プレイヤー[{0}]に飛行権限を解除しました", p.getName());
                 }
             }
         }

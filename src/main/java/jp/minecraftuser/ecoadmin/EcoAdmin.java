@@ -17,6 +17,7 @@ import jp.minecraftuser.ecoadmin.command.EcbanCommand;
 import jp.minecraftuser.ecoadmin.command.EcunbanCommand;
 import jp.minecraftuser.ecoadmin.command.FeedCommand;
 import jp.minecraftuser.ecoadmin.command.FlyCommand;
+import jp.minecraftuser.ecoadmin.command.ForceStopCommand;
 import jp.minecraftuser.ecoadmin.command.FreezeCommand;
 import jp.minecraftuser.ecoadmin.command.GmCommand;
 import jp.minecraftuser.ecoadmin.command.HealCommand;
@@ -238,6 +239,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new LockdownCommand(this, "lock"));
         registerPluginCommand(new UnLockdownCommand(this, "unlock"));
         registerPluginCommand(new StopCommand(this, "stop"));
+        registerPluginCommand(new ForceStopCommand(this, "fstop"));
         registerPluginCommand(new WorldRuleCommand(this, "wrule"));
         registerPluginCommand(new LookCommand(this, "look"));
         registerPluginCommand(new LookCommand(this, "zlook"));
