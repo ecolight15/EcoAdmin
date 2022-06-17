@@ -3,43 +3,10 @@ package jp.minecraftuser.ecoadmin;
 
 import java.util.logging.Level;
 
-import jp.minecraftuser.ecoadmin.command.LookCommand;
+import jp.minecraftuser.ecoadmin.command.*;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.ConfigFrame;
-import jp.minecraftuser.ecoadmin.command.AfkCommand;
-import jp.minecraftuser.ecoadmin.command.BackCommand;
-import jp.minecraftuser.ecoadmin.command.ClearCommand;
-import jp.minecraftuser.ecoadmin.command.EcaCommand;
-import jp.minecraftuser.ecoadmin.command.EcaReloadCommand;
-import jp.minecraftuser.ecoadmin.command.EcaTestCommand;
-import jp.minecraftuser.ecoadmin.command.EcbanCommand;
-import jp.minecraftuser.ecoadmin.command.EcunbanCommand;
-import jp.minecraftuser.ecoadmin.command.FeedCommand;
-import jp.minecraftuser.ecoadmin.command.FlyCommand;
-import jp.minecraftuser.ecoadmin.command.ForceStopCommand;
-import jp.minecraftuser.ecoadmin.command.FreezeCommand;
-import jp.minecraftuser.ecoadmin.command.GmCommand;
-import jp.minecraftuser.ecoadmin.command.HealCommand;
-import jp.minecraftuser.ecoadmin.command.HideCommand;
-import jp.minecraftuser.ecoadmin.command.KillCommand;
-import jp.minecraftuser.ecoadmin.command.LocCommand;
-import jp.minecraftuser.ecoadmin.command.LockdownCommand;
-import jp.minecraftuser.ecoadmin.command.LoginCommand;
-import jp.minecraftuser.ecoadmin.command.PvPCommand;
-import jp.minecraftuser.ecoadmin.command.SetspawnCommand;
-import jp.minecraftuser.ecoadmin.command.ShowCommand;
-import jp.minecraftuser.ecoadmin.command.SpawnCommand;
-import jp.minecraftuser.ecoadmin.command.StopCommand;
-import jp.minecraftuser.ecoadmin.command.StrikeCommand;
-import jp.minecraftuser.ecoadmin.command.TCommand;
-import jp.minecraftuser.ecoadmin.command.TpCommand;
-import jp.minecraftuser.ecoadmin.command.TphereCommand;
-import jp.minecraftuser.ecoadmin.command.TppCommand;
-import jp.minecraftuser.ecoadmin.command.TpseeCommand;
-import jp.minecraftuser.ecoadmin.command.TpsvCommand;
-import jp.minecraftuser.ecoadmin.command.UnLockdownCommand;
-import jp.minecraftuser.ecoadmin.command.WorldRuleCommand;
 import jp.minecraftuser.ecoadmin.config.EcoAdminConfig;
 import jp.minecraftuser.ecoadmin.config.LoginMsgConfig;
 import jp.minecraftuser.ecoadmin.listener.DeathListener;
@@ -243,6 +210,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new WorldRuleCommand(this, "wrule"));
         registerPluginCommand(new LookCommand(this, "look"));
         registerPluginCommand(new LookCommand(this, "zlook"));
+        registerPluginCommand(new LookPosCommand(this, "xlook"));
     }
 
     /**

@@ -149,3 +149,7 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.look
+  xlook:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.lookpos
