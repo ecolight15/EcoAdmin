@@ -145,7 +145,7 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.look
-
-
-    
-    
+  zlook:
+    description: EcoAdmin command.
+    usage: /<command>
+    permission: ecoadmin.look

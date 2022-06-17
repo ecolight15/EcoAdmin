@@ -241,7 +241,8 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new StopCommand(this, "stop"));
         registerPluginCommand(new ForceStopCommand(this, "fstop"));
         registerPluginCommand(new WorldRuleCommand(this, "wrule"));
-        registerPluginCommand(new LookCommand(this, "plook"));
+        registerPluginCommand(new LookCommand(this, "look"));
+        registerPluginCommand(new LookCommand(this, "zlook"));
     }
 
     /**
