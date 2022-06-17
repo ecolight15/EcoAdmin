@@ -27,7 +27,9 @@ public class SaveTimer extends TimerFrame {
     @Override
     public void run()
     {
-        sendPluginMessage(plg, null, "定期セーブを実行中(Auto saving...)");
+        if (isBroadcast) {
+            sendPluginMessage(plg, null, "定期セーブを実行中(Auto saving...)");
+        }
         log.info("セーブ中[players]");
         plg.getServer().savePlayers();
         for (World w : plg.getServer().getWorlds()) {
@@ -35,6 +37,8 @@ public class SaveTimer extends TimerFrame {
             log.info("セーブ中[world:" + w.getName() + "]");
             w.save();
         }
-        sendPluginMessage(plg, null, "定期セーブを完了しました(Auto save is complete.)");
+        if (isBroadcast) {
+            sendPluginMessage(plg, null, "定期セーブを完了しました(Auto save is complete.)");
+        }
     }
 }

@@ -3,7 +3,6 @@ package jp.minecraftuser.ecoadmin.timer;
 import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.TimerFrame;
-import jp.minecraftuser.ecoadmin.config.EcoAdminConfig;
 import jp.minecraftuser.ecoadmin.config.LoginMsgConfig;
 import static jp.minecraftuser.ecoframework.Utl.sendTagMessage;
 import org.bukkit.entity.Player;
@@ -13,7 +12,6 @@ import org.bukkit.entity.Player;
  * @author ecolight
  */
 public class LoginTimer extends TimerFrame {
-    private static EcoAdminConfig ecaConf = null;
     private static LoginMsgConfig msgConf = null;
 
     /**
@@ -24,7 +22,6 @@ public class LoginTimer extends TimerFrame {
      */
     public LoginTimer(PluginFrame plg_, Player player_, String name_) {
         super(plg_, player_, name_);
-        ecaConf = (EcoAdminConfig)conf;
         msgConf = (LoginMsgConfig)plg.getPluginConfig("login");
     }
 

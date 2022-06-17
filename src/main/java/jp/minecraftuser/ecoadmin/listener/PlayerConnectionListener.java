@@ -145,11 +145,9 @@ public class PlayerConnectionListener extends ListenerFrame {
             String host = pl.getAddress().getHostName();
             log.info("getHostName:"+host);
             StringBuilder ip = new StringBuilder();
-            String endoctet = "";
             int count = 0;
             for (String s: pl.getAddress().getAddress().getHostAddress().split("\\.")) {
                 if (count == 3) {
-                    endoctet = s;
                     ip.append("***");
                     break;
                 }
