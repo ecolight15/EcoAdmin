@@ -15,7 +15,7 @@ import java.util.List;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
 
 /**
- * lookコマンドクラス
+ * lookposコマンドクラス
  *
  * @author ecolight
  */
@@ -63,7 +63,7 @@ public class LookPosCommand extends CommandFrame {
         playerSurfaceLoc.setY(0);
 
         double x = 0;
-        double y = player.getLocation().getY();//Y座標は明示されない限りプレイヤーのY座標を流用する
+        double y = player.getLocation().getY();//Y座標は指定されない限りプレイヤーのY座標を流用する
         double z = 0;
 
         boolean parseSuccess = false;
@@ -88,7 +88,7 @@ public class LookPosCommand extends CommandFrame {
                     //パース処理完了
                     parseSuccess = true;
                 } else {
-                    //カンマでパースする
+                    //カンマでの座標指定の場合は配列に分割する(12,-34,56)
                     args = text.split(",");
                 }
             }
@@ -117,7 +117,12 @@ public class LookPosCommand extends CommandFrame {
         }
         //パースに成功した場合
         if (parseSuccess == true) {
-            Location targetLoc = new Location(player.getWorld(), (int) x, (int) y, (int) z);
+            //念のため値の上限をINTの最大or最小値にする
+            x = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,x));
+            y = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,y));
+            z = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,z));
+            Location targetLoc = new Location(player.getWorld(),x,y,z);
+
             //水平距離計算用
             Location targetSurfaceLoc = targetLoc.getBlock().getLocation();
             targetSurfaceLoc.setY(0);
@@ -132,7 +137,7 @@ public class LookPosCommand extends CommandFrame {
             player.teleport(playerLoc);
             player.setVelocity(velocity);
 
-            // 結果通知
+            //結果通知
             sendPluginMessage(plg, sender, "X[{0}] Y[{1}] Z[{2}]の方向を向きました 距離[{3}m] 水平距離[{4}m] 到達予想時間[{5}s]",
                     Integer.toString(targetLoc.getBlockX()), Integer.toString(targetLoc.getBlockY()), Integer.toString(targetLoc.getBlockZ()),
                     String.format("%.1f", distance),
