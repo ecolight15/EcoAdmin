@@ -62,7 +62,6 @@ public class EcaTestCommand extends CommandFrame {
         if (b.getBlockData() != null) sendPluginMessage(plg, sender, "Block data=" + b.getBlockData().getAsString());
         if (b.getBlockData().getMaterial() != null) sendPluginMessage(plg, sender, "Block data material=" + b.getBlockData().getMaterial().name());
         sendPluginMessage(plg, sender, "Block power=" + b.getBlockPower());
-        sendPluginMessage(plg, sender, "Block old data=" + b.getData());
         sendPluginMessage(plg, sender, "Block humidity=" + b.getHumidity());
         sendPluginMessage(plg, sender, "Block light from blocks=" + b.getLightFromBlocks());
         sendPluginMessage(plg, sender, "Block light from sky=" + b.getLightFromSky());
@@ -88,6 +87,7 @@ public class EcaTestCommand extends CommandFrame {
         }
         return true;
     }
+    @SuppressWarnings("unchecked")
     void printItemStack(CommandSender sender, Map<String, Object> objs) {
         for (Entry<String, Object> e : objs.entrySet()) {
             if (e.getValue() instanceof String) {

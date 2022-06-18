@@ -1,12 +1,10 @@
 
 package jp.minecraftuser.ecoadmin.listener;
 
-import java.util.HashMap;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import jp.minecraftuser.ecoadmin.command.BackCommand;
 import jp.minecraftuser.ecoframework.Utl;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -16,8 +14,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
  * @author ecolight
  */
 public class PlayerTeleportListener extends ListenerFrame {
-    private static HashMap<Player, Boolean> tpsee = null;
-
     /**
      * コンストラクタ
      * @param plg_ プラグインインスタンス
