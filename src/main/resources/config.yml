@@ -8,6 +8,7 @@ util:
     enable: true
     interval_tick: 6000
     start_mergin: 6000
+    delay_tick: 1
     broadcast_information: true
   afk:
     enable: true

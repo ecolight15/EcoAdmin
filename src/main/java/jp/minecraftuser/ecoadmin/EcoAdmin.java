@@ -119,6 +119,7 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerBoolean("util.auto_save.enable");
         conf.registerInt("util.auto_save.interval_tick");
         conf.registerInt("util.auto_save.start_mergin");
+        conf.registerInt("util.auto_save.delay_tick");
         conf.registerBoolean("util.auto_save.broadcast_information");
 
         // afk
