@@ -3,6 +3,7 @@ package jp.minecraftuser.ecoadmin.timer;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.TimerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import org.bukkit.GameRule;
 import org.bukkit.World;
 
 import java.util.ArrayList;
@@ -66,6 +67,11 @@ class DelaySaveAllTimer extends TimerFrame {
         //Playerはコンストラクタ実行の時点でセーブする｡
         log.info("セーブ中[players]");
         plg.getServer().savePlayers();
+
+        for (World w : plg.getServer().getWorlds()) {
+            //エリトラの飛行チエックを無効化
+            w.setGameRule(GameRule.DISABLE_ELYTRA_MOVEMENT_CHECK,true);
+        }
     }
 
     /**
@@ -95,12 +101,33 @@ class DelaySaveAllTimer extends TimerFrame {
                 }
                 //Timerをキャンセルさせる
                 this.cancel();
+
+                //エリトラの飛行チエックを5Tick後に有効化(5Tickの値は仮)
+                new TimerFrame(plg,name){
+                    @Override
+                    public void run() {
+                        for (World w:plg.getServer().getWorlds()) {
+                            w.setGameRule(GameRule.DISABLE_ELYTRA_MOVEMENT_CHECK,false);
+                        }
+                    }
+                }.runTaskLater(plg,5);
+
             }
         } else {
             //通常は通らない
             log.info("WorldListが読み込まれていません｡");
             //Timerをキャンセルさせる
             this.cancel();
+
+            //エリトラの飛行チエックを5Tick後に有効化(5Tickの値は仮)
+            new TimerFrame(plg,name){
+                @Override
+                public void run() {
+                    for (World w:plg.getServer().getWorlds()) {
+                        w.setGameRule(GameRule.DISABLE_ELYTRA_MOVEMENT_CHECK,false);
+                    }
+                }
+            }.runTaskLater(plg,5);
         }
     }
 }
