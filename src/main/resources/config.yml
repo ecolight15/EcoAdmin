@@ -66,6 +66,11 @@ protection:
       ignore_world_prefix: "end"
       logging: true
       logfilename: "bed_reject.txt"
+    respawnanchor:
+      disable: true
+      ignore_world_prefix: "end"
+      logging: true
+      logfilename: "respawnanchor_reject.txt"
     hoppercart:
       disable: true
       ignore_world_prefix: "none"

@@ -166,6 +166,37 @@ public class GuardListener extends ListenerFrame {
             }
         }
 
+        // リスポーンアンカー
+        if ((conf.getBoolean("protection.interact.respawnanchor.disable")) ||
+            (conf.getBoolean("protection.interact.respawnanchor.logging"))) {
+            Player p = e.getPlayer();
+            if (!p.isOp()) {
+                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    Block b = e.getClickedBlock();
+                    if (b != null) {
+                        if ((b.getBlockData() != null) && (b.getBlockData().getMaterial() != null) &&
+                            (b.getBlockData().getMaterial().name().endsWith("RESPAWN_ANCHOR"))) {
+                            if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.respawnanchor.ignore_world_prefix"))) {
+                                if ((conf.getBoolean("protection.interact.respawnanchor.disable"))) {
+                                    sendPluginMessage(plg, p, "このワールドでのリスポーンアンカーの利用は制限されています");
+                                    e.setCancelled(true);
+                                }
+                                if (conf.getBoolean("protection.interact.respawnanchor.logging")) {
+                                    StringBuilder sb = new StringBuilder("RespawnAnchor Interact[player=");
+                                    sb.append(p.getName());
+                                    sb.append("] worldname=");
+                                    sb.append(p.getWorld().getName());
+                                    sb.append(" loc=");
+                                    sb.append(p.getLocation().toString());
+                                    plg.getPluginLogger("anchorej").log(sb);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // ホッパーカート手動設置抑止判定
         if ((conf.getBoolean("protection.interact.hoppercart.disable")) ||
             (conf.getBoolean("protection.interact.hoppercart.logging"))) {

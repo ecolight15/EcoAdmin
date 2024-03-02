@@ -74,6 +74,10 @@ public class EcoAdmin  extends PluginFrame {
         conf.registerBoolean("protection.interact.bed.logging");
         conf.registerString("protection.interact.bed.ignore_world_prefix");
         conf.registerString("protection.interact.bed.logfilename");
+        conf.registerBoolean("protection.interact.respawnanchor.disable");
+        conf.registerBoolean("protection.interact.respawnanchor.logging");
+        conf.registerString("protection.interact.respawnanchor.ignore_world_prefix");
+        conf.registerString("protection.interact.respawnanchor.logfilename");
         conf.registerBoolean("protection.interact.hoppercart.disable");
         conf.registerBoolean("protection.interact.hoppercart.logging");
         conf.registerString("protection.interact.hoppercart.ignore_world_prefix");
@@ -273,6 +277,9 @@ public class EcoAdmin  extends PluginFrame {
         }
         if (conf.getBoolean("protection.interact.bed.logging")) {
             registerPluginLogger(new LoggerFrame(this,  conf.getString("protection.interact.bed.logfilename"), "bedrej"));
+        }
+        if (conf.getBoolean("protection.interact.respawnanchor.logging")) {
+            registerPluginLogger(new LoggerFrame(this,  conf.getString("protection.interact.respawnanchor.logfilename"), "anchorej"));
         }
         if (conf.getBoolean("protection.interact.hoppercart.logging")) {
             registerPluginLogger(new LoggerFrame(this,  conf.getString("protection.interact.hoppercart.logfilename"), "hoppercartrej"));
