@@ -4,6 +4,10 @@ package jp.minecraftuser.ecoadmin.listener;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+
+import java.util.HashMap;
+import java.util.UUID;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -19,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
  */
 public class PlayerHandShakeListener extends ListenerFrame {
 
+    private HashMap<UUID, Long> lastTime;
+
     /**
      * コンストラクタ
      * @param plg_ プラグインインスタンス
@@ -26,6 +32,7 @@ public class PlayerHandShakeListener extends ListenerFrame {
      */
     public PlayerHandShakeListener(PluginFrame plg_, String name_) {
         super(plg_, name_);
+        lastTime = new HashMap<>();
     }
 
     /**
@@ -49,6 +56,14 @@ public class PlayerHandShakeListener extends ListenerFrame {
      */
     public boolean PlayerItemPut(Player pl, Entity ent) {
         if (ent.getType() != EntityType.PLAYER) return false;
+        Long time = System.currentTimeMillis();
+        if (lastTime.containsKey(pl.getUniqueId())) {
+            if (time - lastTime.get(pl.getUniqueId()) < 1000) {
+                return true;
+            }
+            lastTime.remove(pl.getUniqueId());
+        }
+        lastTime.put(pl.getUniqueId(), time);
         Player getter = (Player)ent;
         if (!pl.isSneaking()) return false;
         // アイテムを奪い取る場合
