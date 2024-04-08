@@ -141,7 +141,25 @@ public class GuardListener extends ListenerFrame {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     Block b = e.getClickedBlock();
                     if (b != null) {
-                        if ((b.getBiome() == Biome.NETHER) || (b.getBiome() == Biome.THE_END)) {
+                        boolean isNether = false;
+                        boolean isEnd = false;
+                        switch (b.getBiome()) {
+                            case BASALT_DELTAS:
+                            case CRIMSON_FOREST:
+                            case NETHER_WASTES:
+                            case SOUL_SAND_VALLEY:
+                            case WARPED_FOREST:
+                                isNether = true;
+                                break;
+                            case THE_END:
+                            case END_BARRENS:
+                            case END_HIGHLANDS:
+                            case END_MIDLANDS:
+                            case SMALL_END_ISLANDS:
+                                isEnd = true;
+                                break;
+                        }
+                        if (isNether || isEnd) {
                             if ((b.getBlockData() != null) && (b.getBlockData().getMaterial() != null) &&
                                 (b.getBlockData().getMaterial().name().endsWith("_BED"))) {
                                 if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.bed.ignore_world_prefix"))) {
