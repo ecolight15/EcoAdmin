@@ -44,6 +44,8 @@ public class SignListener extends ListenerFrame {
         if (conf.getBoolean("fun.sign_colorcode_convert")) {
             for (int i = 0; i < e.getLines().length; i++) {
                 String line = e.getLines()[i];
+                //セクション記号が紛れ込むときがあるので、一旦除去してから色変換
+                line = line.replaceAll("§([0-9A-Fa-flLmMnNoOkKrR])", "");
                 line = repColor(line);
                 e.setLine(i, line);
             }
