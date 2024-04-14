@@ -8,6 +8,8 @@ import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.mergeStrings;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -54,14 +56,14 @@ public class LockdownCommand extends CommandFrame {
         } else {
             lockmsg = mergeStrings(args);
         }
-        for (Player p: plg.getServer().getOnlinePlayers()) {
-            // allow_op が 有効の場合にはOPは除外する(allow_opが無効または検査プレイヤーがOPでない場合はけりだす）
-            if ((!allow_op) || (!p.isOp())) {
-                p.kickPlayer(lockmsg);
-            }
-        }
+
+
         ((PlayerConnectionListener)plg.getPluginListener("plconnection")).setServerLockdown(lockmsg);
-        
+
+        //mqdbコマンドのsaveAndKickコマンドでkickする。
+        String command = "mpdb saveAndkick";
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+
         sendPluginMessage(plg, sender, "サーバーを次の理由でロックダウンしました");
         sendPluginMessage(plg, sender, lockmsg);
         return true;
