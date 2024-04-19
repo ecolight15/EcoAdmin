@@ -62,7 +62,7 @@ public class PlayerConnectionListener extends ListenerFrame {
         // ホスト表示除外、ログイン抑止の対象外かどうかチェックする
         boolean hit = false;
         for (String ignore : conf.getArrayList("security.kick.ignore_reason_announce")) {
-            if (ignore.equals(s)) {
+            if (s.contains(ignore)) {
                 hit = true;
                 break;
             }
