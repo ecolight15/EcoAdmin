@@ -22,21 +22,24 @@ import static jp.minecraftuser.ecoframework.Utl.repColor;
 
 /**
  * 看板イベント処理リスナークラス
+ *
  * @author ecolight
  */
 public class SignListener extends ListenerFrame {
-    
+
     /**
      * コンストラクタ
-     * @param plg_ プラグインインスタンス
+     *
+     * @param plg_  プラグインインスタンス
      * @param name_ 名前
      */
     public SignListener(PluginFrame plg_, String name_) {
         super(plg_, name_);
     }
-   
+
     /**
      * 看板イベント処理
+     *
      * @param e イベント情報
      */
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
@@ -67,8 +70,8 @@ public class SignListener extends ListenerFrame {
         if (clickedBlock != null && isSignBlock(clickedBlock)) {
             //スニーク中でない場合
             if (!player.isSneaking()) {
-                //ハニカムもしくは光るイカ墨の袋ならイベントを続行
-                if (usedItem != null && (usedItem.getType() == Material.HONEYCOMB || usedItem.getType() == Material.GLOW_INK_SAC)) {
+                //ハニカムもしくは光るイカ墨の袋もしくは、染料ならならイベントを続行
+                if (usedItem != null && (usedItem.getType() == Material.HONEYCOMB || usedItem.getType() == Material.GLOW_INK_SAC || isDyeItem(usedItem))) {
                     final Sign sign = (Sign) clickedBlock.getState();
                     if (sign.isWaxed()) {
                         //すでにワックス済みならキャンセル
@@ -173,6 +176,16 @@ public class SignListener extends ListenerFrame {
                 || blockData instanceof org.bukkit.block.data.type.WallSign
                 || blockData instanceof org.bukkit.block.data.type.HangingSign
                 || blockData instanceof org.bukkit.block.data.type.WallHangingSign) {
+            return true;
+        }
+        return false;
+    }
+
+    //染料アイテムかチェック
+    public static boolean isDyeItem(ItemStack itemStack) {
+        Material material = itemStack.getType();
+
+        if (material.name().endsWith("_DYE")) {
             return true;
         }
         return false;

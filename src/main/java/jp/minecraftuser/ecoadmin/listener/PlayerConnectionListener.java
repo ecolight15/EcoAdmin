@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import jp.minecraftuser.ecoadmin.timer.LoginTimer;
+import jp.minecraftuser.ecoframework.TimerFrame;
 import jp.minecraftuser.ecoframework.Utl;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -130,6 +133,22 @@ public class PlayerConnectionListener extends ListenerFrame {
         } else {
             plg.getServer().broadcastMessage("Player Login event is null");
         }
+        //plg.getServer().broadcastMessage("エリトラ異常飛行チェック解除");
+
+        //エリトラの飛行チエックを無効化
+        for (World w : plg.getServer().getWorlds()) {
+            w.setGameRule(GameRule.DISABLE_ELYTRA_MOVEMENT_CHECK,true);
+        }
+        //ログイン開始から10秒間(200tick)の間はエリトラの移動チェックを無効化
+        new TimerFrame(plg,name){
+            @Override
+            public void run() {
+                for (World w:plg.getServer().getWorlds()) {
+                    w.setGameRule(GameRule.DISABLE_ELYTRA_MOVEMENT_CHECK,false);
+                }
+                //plg.getServer().broadcastMessage("エリトラ異常飛行チェック再開");
+            }
+        }.runTaskLater(plg,200);
     }
 
     /**
