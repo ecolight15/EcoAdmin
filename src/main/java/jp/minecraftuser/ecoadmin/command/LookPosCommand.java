@@ -162,7 +162,7 @@ public class LookPosCommand extends CommandFrame {
             }
 
             //結果通知
-            sendPluginMessage(plg, sender, "X[{0}] Y[{1}] Z[{2}]の方向を向きました 距離[{3}m] 水平距離[{4}m] 到達予想時間[{5}s] 最寄りゲート[{6}] 接続先ゲート[{7}]\n接続先ゲートworld[{8}]",
+            sendPluginMessage(plg, sender, "X[{0}] Y[{1}] Z[{2}]の方向を向きました。\n距離[{3}m] 水平距離[{4}m] 到達予想時間[{5}s]\n最寄りゲート[{6}] 接続先ゲート[{7}]]",
                     Integer.toString(targetLoc.getBlockX()),
                     Integer.toString(targetLoc.getBlockY()),
                     Integer.toString(targetLoc.getBlockZ()),

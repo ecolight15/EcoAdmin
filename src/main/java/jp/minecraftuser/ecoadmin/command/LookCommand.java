@@ -135,7 +135,7 @@ public class LookCommand extends CommandFrame {
                 player.teleport(playerLoc);
                 player.setVelocity(velocity);
 
-                sendPluginMessage(plg, sender, "§c§l§n最も近い接続先ゲート[{7}]の方向を向きました。§r\nユーザー[{0}] world[{1}] X[{2}] Y[{3}] Z[{4}]距離[{5}m] \n最寄りゲート[{6}] 接続先ゲート[{7}]\n接続先ゲートworld[{8}] X[{9}] Y[{10}] Z[{11}] 距離[{12}m] \n到達予想時間[{13}s] ",
+                sendPluginMessage(plg, sender, "§c§l§n最も近い接続先ゲート[{7}]の方向を向きました。§r\nユーザー[{0}]\n world[{1}] X[{2}] Y[{3}] Z[{4}] 距離[{5}m] \n最寄りゲート[{6}] 接続先ゲート[{7}]\n接続先ゲートworld[{8}] X[{9}] Y[{10}] Z[{11}] 距離[{12}m] \n到達予想時間[{13}s] ",
                         target.getName(),
                         targetLoc.getWorld().getName(),
                         Integer.toString(targetLoc.getBlockX()),
@@ -164,7 +164,7 @@ public class LookCommand extends CommandFrame {
                 player.teleport(playerLoc);
                 player.setVelocity(velocity);
 
-                sendPluginMessage(plg, sender, "ユーザー[{0}]の方向を向きました\nworld[{1}] X[{2}] Y[{3}] Z[{4}] 距離[{5}m] 水平距離[{6}m]\n到達予想時間[{7}s] \n最寄りゲート[{8}] 接続先ゲート[{9}]",
+                sendPluginMessage(plg, sender, "ユーザー[{0}]の方向を向きました。\nworld[{1}] X[{2}] Y[{3}] Z[{4}]\n距離[{5}m] 水平距離[{6}m] 到達予想時間[{7}s] \n最寄りゲート[{8}] 接続先ゲート[{9}]",
                         target.getName(),
                         targetLoc.getWorld().getName(),
                         Integer.toString(targetLoc.getBlockX()),
