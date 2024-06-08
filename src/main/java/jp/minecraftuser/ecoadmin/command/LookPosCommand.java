@@ -3,6 +3,10 @@ package jp.minecraftuser.ecoadmin.command;
 
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.PluginFrame;
+import jp.minecraftuser.ecogate.EcoGate;
+import jp.minecraftuser.ecogate.config.EcoGateConfig;
+import jp.minecraftuser.ecogate.config.LoaderGate;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -118,10 +122,10 @@ public class LookPosCommand extends CommandFrame {
         //パースに成功した場合
         if (parseSuccess == true) {
             //念のため値の上限をINTの最大or最小値にする
-            x = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,x));
-            y = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,y));
-            z = Math.max(Integer.MIN_VALUE,Math.min(Integer.MAX_VALUE,z));
-            Location targetLoc = new Location(player.getWorld(),x,y,z);
+            x = Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE, x));
+            y = Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE, y));
+            z = Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE, z));
+            Location targetLoc = new Location(player.getWorld(), x, y, z);
 
             //水平距離計算用
             Location targetSurfaceLoc = targetLoc.getBlock().getLocation();
@@ -137,12 +141,36 @@ public class LookPosCommand extends CommandFrame {
             player.teleport(playerLoc);
             player.setVelocity(velocity);
 
+            String target_near_gate_name = null;
+            String link_gate_name = null;
+            Location target_near_gate_location = null;
+            Location link_gate_location = null;
+            try {
+                EcoGate plugin = (EcoGate) Bukkit.getPluginManager().getPlugin("EcoGate");
+                EcoGateConfig ecoGateConfig = (EcoGateConfig) plugin.getDefaultConfig();
+                LoaderGate gates = ecoGateConfig.getGates();
+                target_near_gate_name = gates.nearGateSearch(targetLoc, true);
+                target_near_gate_location = gates.getGateLocation(target_near_gate_name).clone();
+
+
+                if (target_near_gate_name != null && !target_near_gate_name.equals("null")) {
+                    link_gate_name = gates.getLinkGateName(target_near_gate_name);
+                    link_gate_location = gates.getGateLocation(link_gate_name).clone();
+                }
+            } catch (Exception e) {
+                return false;
+            }
+
             //結果通知
-            sendPluginMessage(plg, sender, "X[{0}] Y[{1}] Z[{2}]の方向を向きました 距離[{3}m] 水平距離[{4}m] 到達予想時間[{5}s]",
-                    Integer.toString(targetLoc.getBlockX()), Integer.toString(targetLoc.getBlockY()), Integer.toString(targetLoc.getBlockZ()),
+            sendPluginMessage(plg, sender, "X[{0}] Y[{1}] Z[{2}]の方向を向きました。\n距離[{3}m] 水平距離[{4}m] 到達予想時間[{5}s]\n最寄りゲート[{6}] 接続先ゲート[{7}]]",
+                    Integer.toString(targetLoc.getBlockX()),
+                    Integer.toString(targetLoc.getBlockY()),
+                    Integer.toString(targetLoc.getBlockZ()),
                     String.format("%.1f", distance),
                     String.format("%.1f", surfaceDistance),
-                    String.format("%.1f", surfaceDistance / 33.66)
+                    String.format("%.1f", surfaceDistance / 33.66),
+                    target_near_gate_name,
+                    link_gate_name
             );
             return true;
         } else {
