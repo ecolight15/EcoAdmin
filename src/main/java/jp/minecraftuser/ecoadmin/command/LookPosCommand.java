@@ -6,6 +6,7 @@ import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecogate.EcoGate;
 import jp.minecraftuser.ecogate.config.EcoGateConfig;
 import jp.minecraftuser.ecogate.config.LoaderGate;
+import jp.minecraftuser.ecogate.struct.Gate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -141,21 +142,18 @@ public class LookPosCommand extends CommandFrame {
             player.teleport(playerLoc);
             player.setVelocity(velocity);
 
-            String target_near_gate_name = null;
-            String link_gate_name = null;
-            Location target_near_gate_location = null;
-            Location link_gate_location = null;
+            Gate targetNearGate = null;
+            String targetNearGateName = "";
+            String targetLinkGateName = null;
             try {
                 EcoGate plugin = (EcoGate) Bukkit.getPluginManager().getPlugin("EcoGate");
                 EcoGateConfig ecoGateConfig = (EcoGateConfig) plugin.getDefaultConfig();
                 LoaderGate gates = ecoGateConfig.getGates();
-                target_near_gate_name = gates.nearGateSearch(targetLoc, true);
-                target_near_gate_location = gates.getGateLocation(target_near_gate_name).clone();
+                targetNearGate = gates.nearGateSearch(targetLoc, true);
 
-
-                if (target_near_gate_name != null && !target_near_gate_name.equals("null")) {
-                    link_gate_name = gates.getLinkGateName(target_near_gate_name);
-                    link_gate_location = gates.getGateLocation(link_gate_name).clone();
+                if (targetNearGate != null){
+                    targetNearGateName = targetNearGate.name;
+                    targetLinkGateName = targetNearGate.link.name;
                 }
             } catch (Exception e) {
                 return false;
@@ -169,8 +167,8 @@ public class LookPosCommand extends CommandFrame {
                     String.format("%.1f", distance),
                     String.format("%.1f", surfaceDistance),
                     String.format("%.1f", surfaceDistance / 33.66),
-                    target_near_gate_name,
-                    link_gate_name
+                    targetNearGateName,
+                    targetLinkGateName
             );
             return true;
         } else {

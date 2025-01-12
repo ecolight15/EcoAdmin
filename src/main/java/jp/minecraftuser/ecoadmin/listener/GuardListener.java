@@ -108,9 +108,10 @@ public class GuardListener extends ListenerFrame {
                 Block b = e.getClickedBlock();
                 if (b != null) {
                     BlockData bd = b.getBlockData();
-                    if ((bd != null) && (bd.getMaterial().equals(Material.SPAWNER))) {
+                    if ((bd != null) && (bd.getMaterial().equals(Material.SPAWNER) || bd.getMaterial().equals(Material.TRIAL_SPAWNER))) {
                         if (e.getItem() != null) {
-                            if (e.getItem().toString().indexOf("SPAWN_EGG") != -1) {
+                            System.out.println(e.getItem().toString());
+                            if (e.getItem().toString().contains("SPAWN_EGG")) {
                                 if (!b.getWorld().getName().startsWith(conf.getString("protection.interact.mob_egg.ignore_world_prefix"))) {
                                     if ((conf.getBoolean("protection.interact.mob_egg.disable"))) {
                                         sendPluginMessage(plg, p, "このワールドでのMOB卵によるスポナーブロックの変更は制限されています");
