@@ -25,6 +25,7 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 /**
  * EcoAdminプラグインメインクラス
+ * git動作確認用
  * @author ecolight
  */
 public class EcoAdmin  extends PluginFrame {
