@@ -161,8 +161,6 @@ public class PlayerConnectionListener extends ListenerFrame {
 
         // ログイン時IPアドレス出力
         if (conf.getBoolean("security.join.show_partof_ipaddress")) {
-            String host = pl.getAddress().getHostName();
-            log.info("getHostName:"+host);
             StringBuilder ip = new StringBuilder();
             int count = 0;
             for (String s: pl.getAddress().getAddress().getHostAddress().split("\\.")) {
