@@ -17,6 +17,7 @@ import jp.minecraftuser.ecoadmin.listener.PlayerHandShakeListener;
 import jp.minecraftuser.ecoadmin.listener.PlayerTeleportListener;
 import jp.minecraftuser.ecoadmin.listener.SignListener;
 import jp.minecraftuser.ecoadmin.listener.TpseeListener;
+import jp.minecraftuser.ecoadmin.listener.TListener;
 import jp.minecraftuser.ecoadmin.timer.AfkTimer;
 import jp.minecraftuser.ecoadmin.timer.CorrectionTimer;
 import jp.minecraftuser.ecoadmin.timer.SaveTimer;
@@ -231,6 +232,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginListener(new PlayerTeleportListener(this, "plteleport"));
         registerPluginListener(new SignListener(this, "sign"));
         registerPluginListener(new TpseeListener(this, "tpsee"));
+        registerPluginListener(new TListener(this, "t"));
     }
 
     /**

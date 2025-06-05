@@ -7,6 +7,7 @@ import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import jp.minecraftuser.ecoadmin.listener.TListener;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -92,6 +93,17 @@ public class TpseeListener extends ListenerFrame {
      * @param p プレイヤー
      */
     public void toggleTpsee(Player p) {
+        // TCommandが有効の場合は抑止
+        try {
+            TListener tListener = (TListener)plg.getPluginListener("t");
+            if (tListener != null && tListener.isStrikeEnabled(p)) {
+                sendPluginMessage(plg, p, "Strikeモードが有効のため、tpseeを開始できません。");
+                return;
+            }
+        } catch (Exception e) {
+            // TListenerが登録されていない場合は無視
+        }
+        
         if (!tpsee.containsKey(p)) {
             tpsee.put(p, false);
         }
@@ -102,5 +114,14 @@ public class TpseeListener extends ListenerFrame {
             tpsee.replace(p, true);
             sendPluginMessage(plg, p, "tpseeを有効にしました。無効にするには再度コマンド実行してください。");
         }
+    }
+    
+    /**
+     * Tpseeモードが有効かどうかチェック
+     * @param p プレイヤー
+     * @return 有効かどうか
+     */
+    public boolean isTpseeEnabled(Player p) {
+        return tpsee.containsKey(p) && tpsee.get(p);
     }
 }
