@@ -43,11 +43,8 @@ public class TCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
-        // プレイヤーのみ実行可能
-        if (!(sender instanceof Player)) {
-            sendPluginMessage(plg, sender, "このコマンドはプレイヤーのみ実行できます");
-            return true;
-        }
+        // 引数処理
+        if (!checkRange(sender, args, 0, 1)) return true;
         
         Player player = (Player) sender;
         String type = "dumy"; // デフォルトはエフェクトのみ
@@ -80,12 +77,8 @@ public class TCommand extends CommandFrame {
     protected List<String> getTabComplete(CommandSender sender, Command cmd, String string, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
-            if ("dumy".toLowerCase().startsWith(strings[0].toLowerCase())) {
-                list.add("dumy");
-            }
-            if ("real".toLowerCase().startsWith(strings[0].toLowerCase())) {
-                list.add("real");
-            }
+            list.add("dumy");
+            list.add("real");
         }
         return list;
     }
