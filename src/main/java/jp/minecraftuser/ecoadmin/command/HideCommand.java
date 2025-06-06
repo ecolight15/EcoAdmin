@@ -8,15 +8,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
- * リロードコマンドクラス
+ * Hideコマンドクラス
  * @author ecolight
  */
 public class HideCommand extends CommandFrame {
     
     // 隠れた状態のプレイヤーを記録するためのセット
-    private static Set<String> hiddenPlayers = new HashSet<>();
+    private static Set<UUID> hiddenPlayers = new HashSet<>();
 
     /**
      * コンストラクタ
@@ -46,7 +47,7 @@ public class HideCommand extends CommandFrame {
     public boolean worker(CommandSender sender, String[] args) {
         Player p = (Player) sender;
         // プレイヤーを隠れた状態として記録
-        hiddenPlayers.add(p.getName());
+        hiddenPlayers.add(p.getUniqueId());
         
         // 現在オンラインの全プレイヤーに対してhidePlayerを実行
         for (Player pl : plg.getServer().getOnlinePlayers()) {
@@ -58,9 +59,9 @@ public class HideCommand extends CommandFrame {
     
     /**
      * 隠れた状態のプレイヤー一覧を取得
-     * @return 隠れた状態のプレイヤー名のセット
+     * @return 隠れた状態のプレイヤーUUIDのセット
      */
-    public static Set<String> getHiddenPlayers() {
+    public static Set<UUID> getHiddenPlayers() {
         return hiddenPlayers;
     }
     

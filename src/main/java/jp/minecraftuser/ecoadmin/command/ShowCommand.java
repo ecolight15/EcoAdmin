@@ -41,7 +41,7 @@ public class ShowCommand extends CommandFrame {
     public boolean worker(CommandSender sender, String[] args) {
         Player p = (Player) sender;
         // プレイヤーを隠れた状態から除外
-        HideCommand.getHiddenPlayers().remove(p.getName());
+        HideCommand.getHiddenPlayers().remove(p.getUniqueId());
         
         // 現在オンラインの全プレイヤーに対してshowPlayerを実行
         for (Player pl : plg.getServer().getOnlinePlayers()) {

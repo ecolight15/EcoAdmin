@@ -2,6 +2,7 @@
 package jp.minecraftuser.ecoadmin.listener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import jp.minecraftuser.ecoadmin.timer.LoginTimer;
@@ -53,8 +54,7 @@ public class PlayerConnectionListener extends ListenerFrame {
         }
         
         // 隠れた状態のプレイヤーがログアウトした場合、状態をクリア
-        // （再ログイン時も隠れた状態を保持したい場合はこの処理を削除）
-        HideCommand.getHiddenPlayers().remove(e.getPlayer().getName());
+        HideCommand.getHiddenPlayers().remove(e.getPlayer().getUniqueId());
     }
 
     /**
@@ -206,8 +206,8 @@ public class PlayerConnectionListener extends ListenerFrame {
         }
         
         // 隠れた状態のプレイヤーを新しく参加したプレイヤーから隠す
-        for (String hiddenPlayerName : HideCommand.getHiddenPlayers()) {
-            Player hiddenPlayer = plg.getServer().getPlayer(hiddenPlayerName);
+        for (UUID hiddenPlayerUUID : HideCommand.getHiddenPlayers()) {
+            Player hiddenPlayer = plg.getServer().getPlayer(hiddenPlayerUUID);
             if (hiddenPlayer != null && hiddenPlayer.isOnline()) {
                 pl.hidePlayer(plg, hiddenPlayer);
             }
