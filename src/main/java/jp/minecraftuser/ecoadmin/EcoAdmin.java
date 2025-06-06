@@ -197,10 +197,7 @@ public class EcoAdmin  extends PluginFrame {
         registerPluginCommand(new StrikeCommand(this, "strike"));
         registerPluginCommand(new TCommand(this, "t"));
         registerPluginCommand(new TpsvCommand(this, "tpsv"));
-        registerPluginCommand(new EcbanCommand(this, "ecban"));
-        registerPluginCommand(new EcunbanCommand(this, "ecunban"));
         registerPluginCommand(new FreezeCommand(this, "freeze"));
-        registerPluginCommand(new AfkCommand(this, "afk"));
         registerPluginCommand(new FlyCommand(this, "fly"));
         registerPluginCommand(new GmCommand(this, "gm"));
         registerPluginCommand(new HideCommand(this, "hide"));
