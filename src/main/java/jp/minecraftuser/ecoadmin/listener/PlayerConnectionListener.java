@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import jp.minecraftuser.ecoadmin.timer.LoginTimer;
+import jp.minecraftuser.ecoadmin.command.HideCommand;
 import jp.minecraftuser.ecoframework.TimerFrame;
 import jp.minecraftuser.ecoframework.Utl;
 import org.bukkit.GameRule;
@@ -50,6 +51,10 @@ public class PlayerConnectionListener extends ListenerFrame {
                 pl.getVehicle().eject();
             }
         }
+        
+        // 隠れた状態のプレイヤーがログアウトした場合、状態をクリア
+        // （再ログイン時も隠れた状態を保持したい場合はこの処理を削除）
+        HideCommand.getHiddenPlayers().remove(e.getPlayer().getName());
     }
 
     /**
@@ -198,6 +203,14 @@ public class PlayerConnectionListener extends ListenerFrame {
         // 告知
         if (conf.getBoolean("fun.login_message")) {
             new LoginTimer(plg, pl, "login").runTaskLater(plg, 20L);
+        }
+        
+        // 隠れた状態のプレイヤーを新しく参加したプレイヤーから隠す
+        for (String hiddenPlayerName : HideCommand.getHiddenPlayers()) {
+            Player hiddenPlayer = plg.getServer().getPlayer(hiddenPlayerName);
+            if (hiddenPlayer != null && hiddenPlayer.isOnline()) {
+                pl.hidePlayer(plg, hiddenPlayer);
+            }
         }
     }
 
