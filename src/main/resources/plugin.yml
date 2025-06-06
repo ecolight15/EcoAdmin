@@ -73,22 +73,10 @@ commands:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.tpsv
-  ecban:
-    description: EcoAdmin command.
-    usage: /<command>
-    permission: ecoadmin.ecban
-  ecunban:
-    description: EcoAdmin command.
-    usage: /<command>
-    permission: ecoadmin.ecunban
   freeze:
     description: EcoAdmin command.
     usage: /<command>
     permission: ecoadmin.freeze
-  afk:
-    description: EcoAdmin command.
-    usage: /<command>
-    permission: ecoadmin.afk
   fly:
     description: EcoAdmin command.
     usage: /<command>
