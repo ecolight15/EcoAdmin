@@ -128,8 +128,29 @@ public class WorldRuleCommand extends CommandFrame {
     protected List<String> getTabComplete(CommandSender sender, Command cmd, String string, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
+            // List all world names
             for (World w : plg.getServer().getWorlds()) {
                 list.add(w.getName());
+            }
+        } else if (strings.length == 2) {
+            // List all game rules for the specified world
+            World w = Bukkit.getServer().getWorld(strings[0]);
+            if (w != null) {
+                for (String ruleName : w.getGameRules()) {
+                    list.add(ruleName);
+                }
+            }
+        } else if (strings.length == 3) {
+            // Get current value of the specified game rule for the specified world
+            World w = Bukkit.getServer().getWorld(strings[0]);
+            if (w != null && Arrays.asList(w.getGameRules()).contains(strings[1])) {
+                GameRule g = GameRule.getByName(strings[1]);
+                if (g != null) {
+                    Object currentValue = w.getGameRuleValue(g);
+                    if (currentValue != null) {
+                        list.add(currentValue.toString());
+                    }
+                }
             }
         }
         return list;
