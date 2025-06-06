@@ -6,12 +6,18 @@ import jp.minecraftuser.ecoframework.CommandFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /**
- * リロードコマンドクラス
+ * Hideコマンドクラス
  * @author ecolight
  */
 public class HideCommand extends CommandFrame {
+    
+    // 隠れた状態のプレイヤーを記録するためのセット
+    private static Set<UUID> hiddenPlayers = new HashSet<>();
 
     /**
      * コンストラクタ
@@ -40,14 +46,23 @@ public class HideCommand extends CommandFrame {
     @Override
     public boolean worker(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        // 後からログインしたユーザーに対して効かないがとりあえず実装は保留
-        // ・mapで設定を記録、logout or showコマンドで設定解除、joinユーザーに対してhide実行させるのをそのうちやること
-        // あと他プレイヤー指定対応も
+        // プレイヤーを隠れた状態として記録
+        hiddenPlayers.add(p.getUniqueId());
+        
+        // 現在オンラインの全プレイヤーに対してhidePlayerを実行
         for (Player pl : plg.getServer().getOnlinePlayers()) {
             pl.hidePlayer(plg, p);
         }
         sendPluginMessage(plg, sender, "他プレイヤーから隠れた状態になりました");
         return true;
+    }
+    
+    /**
+     * 隠れた状態のプレイヤー一覧を取得
+     * @return 隠れた状態のプレイヤーUUIDのセット
+     */
+    public static Set<UUID> getHiddenPlayers() {
+        return hiddenPlayers;
     }
     
 }

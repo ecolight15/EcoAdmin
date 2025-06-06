@@ -40,9 +40,10 @@ public class ShowCommand extends CommandFrame {
     @Override
     public boolean worker(CommandSender sender, String[] args) {
         Player p = (Player) sender;
-        // 後からログインしたユーザーに対して効かないがとりあえず実装は保留
-        // ・mapで設定を記録、logout or showコマンドで設定解除、joinユーザーに対してhide実行させるのをそのうちやること
-        // あと他プレイヤー指定対応も
+        // プレイヤーを隠れた状態から除外
+        HideCommand.getHiddenPlayers().remove(p.getUniqueId());
+        
+        // 現在オンラインの全プレイヤーに対してshowPlayerを実行
         for (Player pl : plg.getServer().getOnlinePlayers()) {
             pl.showPlayer(plg, p);
         }
