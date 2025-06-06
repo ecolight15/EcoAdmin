@@ -84,6 +84,11 @@ public class PvPCommand extends CommandFrame {
             for (World w : plg.getServer().getWorlds()) {
                 list.add(w.getName());
             }
+        } else if (strings.length == 2) {
+            World w = plg.getServer().getWorld(strings[0]);
+            if (w != null) {
+                list.add(String.valueOf(w.getPVP()));
+            }
         }
         return list;
     }
