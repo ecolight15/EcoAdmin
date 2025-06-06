@@ -26,8 +26,8 @@ public class EcaTestCommand extends CommandFrame {
      */
     public EcaTestCommand(PluginFrame plg_, String name_) {
         super(plg_, name_);
-//        setAuthBlock(true);
-//        setAuthConsole(true);
+        setAuthBlock(true);
+        setAuthConsole(true);
     }
 
     /**
@@ -48,7 +48,7 @@ public class EcaTestCommand extends CommandFrame {
     @Override
     public boolean worker(CommandSender sender, String[] args) {
         // パラメータチェック:0のみ
-//        if (!checkRange(sender, args, 0, 0)) return true;
+        if (!checkRange(sender, args, 0, 0)) return true;
 
         // 現在地点の足元のブロック情報と両手の手持ちのアイテムの情報を返す
         Player p = (Player) sender;
