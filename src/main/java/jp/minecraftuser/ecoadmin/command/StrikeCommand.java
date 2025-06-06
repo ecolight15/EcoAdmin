@@ -44,8 +44,8 @@ public class StrikeCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
-        // パラメータチェック:0～1まで
-        if (!checkRange(sender, args, 0, 1)) return true;
+        // パラメータチェック:0～2まで
+        if (!checkRange(sender, args, 0, 2)) return true;
 
         if (args.length >= 1) {
             // 他プレイヤー指定
@@ -58,9 +58,27 @@ public class StrikeCommand extends CommandFrame {
                     }
                 }
                 if (target != null) {
-                    target.getWorld().strikeLightningEffect(target.getLocation());
+                    // 雷のタイプを決定
+                    String type = "dumy"; // デフォルトは偽雷
+                    if (args.length >= 2) {
+                        if ("real".equals(args[1])) {
+                            type = "real";
+                        } else if ("dumy".equals(args[1])) {
+                            type = "dumy";
+                        } else {
+                            // 無効な引数の場合はdumyとして扱う
+                            type = "dumy";
+                        }
+                    }
+                    
+                    // 雷を落とす
+                    if ("real".equals(type)) {
+                        target.getWorld().strikeLightning(target.getLocation());
+                    } else {
+                        target.getWorld().strikeLightningEffect(target.getLocation());
+                    }
                     target.damage(0);
-                 } else {
+                } else {
                     sendPluginMessage(plg, sender, "指定したプレイヤー[{0}]は見つかりませんでした", args[0]);
                 }
             } else {
@@ -94,6 +112,13 @@ public class StrikeCommand extends CommandFrame {
                 if (p.getName().toLowerCase().startsWith(strings[0].toLowerCase())) {
                     list.add(p.getName());
                 }
+            }
+        } else if (strings.length == 2) {
+            if ("dumy".toLowerCase().startsWith(strings[1].toLowerCase())) {
+                list.add("dumy");
+            }
+            if ("real".toLowerCase().startsWith(strings[1].toLowerCase())) {
+                list.add("real");
             }
         }
         return list;
