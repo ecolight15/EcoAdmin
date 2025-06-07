@@ -15,8 +15,21 @@ import java.util.Map;
  */
 public class KeepInventoryManager {
     
-    // 現在実行中のタイマーを管理するマップ（ワールドごと）
-    private static final Map<World, TimerFrame> activeTimers = new HashMap<>();
+    /**
+     * タイマーと元の設定値を保持する内部クラス
+     */
+    private static class TimerInfo {
+        public final TimerFrame timer;
+        public final Boolean originalValue;
+        
+        public TimerInfo(TimerFrame timer, Boolean originalValue) {
+            this.timer = timer;
+            this.originalValue = originalValue;
+        }
+    }
+    
+    // 現在実行中のタイマー情報を管理するマップ（ワールドごと）
+    private static final Map<World, TimerInfo> activeTimers = new HashMap<>();
     
     /**
      * 雷発生時にkeep-inventory設定を一時的に有効化する
@@ -27,15 +40,18 @@ public class KeepInventoryManager {
      * @param commandName 呼び出し元コマンド名（ログ用）
      */
     public static void enableKeepInventoryTemporarily(PluginFrame plg,  World world, String commandName) {
-        // 既存のタイマーがあれば中断
-        TimerFrame existingTimer = activeTimers.get(world);
-        if (existingTimer != null) {
-            existingTimer.cancel();
+        // 元の設定値を決定（既存タイマーがある場合はその元値を継承）
+        final Boolean originalKeepInventory;
+        TimerInfo existingTimerInfo = activeTimers.get(world);
+        if (existingTimerInfo != null) {
+            // 既存のタイマーがある場合は、そのタイマーが保持していた元の値を継承
+            originalKeepInventory = existingTimerInfo.originalValue;
+            existingTimerInfo.timer.cancel();
             activeTimers.remove(world);
+        } else {
+            // 新規の場合は現在の設定値を保存
+            originalKeepInventory = world.getGameRuleValue(GameRule.KEEP_INVENTORY);
         }
-        
-        // 元の設定値を保存
-        final Boolean originalKeepInventory = world.getGameRuleValue(GameRule.KEEP_INVENTORY);
         
         // keep-inventoryを有効にする
         world.setGameRule(GameRule.KEEP_INVENTORY, true);
@@ -53,8 +69,8 @@ public class KeepInventoryManager {
             }
         };
         
-        // タイマーをマップに登録してから実行
-        activeTimers.put(world, restoreTimer);
+        // タイマー情報をマップに登録してから実行
+        activeTimers.put(world, new TimerInfo(restoreTimer, originalKeepInventory));
         restoreTimer.runTaskLater(plg, 100); // 100ティック = 5秒
     }
     
@@ -64,9 +80,9 @@ public class KeepInventoryManager {
      * @param world 対象ワールド
      */
     public static void cancelKeepInventoryTimer(World world) {
-        TimerFrame timer = activeTimers.get(world);
-        if (timer != null) {
-            timer.cancel();
+        TimerInfo timerInfo = activeTimers.get(world);
+        if (timerInfo != null) {
+            timerInfo.timer.cancel();
             activeTimers.remove(world);
         }
     }
