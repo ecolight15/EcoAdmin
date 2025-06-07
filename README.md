@@ -193,7 +193,7 @@ protection:
 ## 対応バージョン
 
 - **Minecraft**: 1.20.4+
-- **Java**: 8+
+- **Java**: 17+
 - **Spigot/Paper**: 1.20.4+
 
 ## ライセンス
