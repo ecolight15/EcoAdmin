@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
+import jp.minecraftuser.ecoadmin.util.KeepInventoryManager;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -73,6 +74,7 @@ public class StrikeCommand extends CommandFrame {
                     
                     // 雷を落とす
                     if ("real".equals(type)) {
+                        KeepInventoryManager.enableKeepInventoryTemporarily(plg, target.getWorld(), name);
                         target.getWorld().strikeLightning(target.getLocation());
                     } else {
                         target.getWorld().strikeLightningEffect(target.getLocation());

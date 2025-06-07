@@ -7,6 +7,7 @@ import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.ListenerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
 import jp.minecraftuser.ecoadmin.listener.TpseeListener;
+import jp.minecraftuser.ecoadmin.util.KeepInventoryManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -70,6 +71,7 @@ public class TListener extends ListenerFrame {
                             // 見つけたブロックの位置に雷を落とす
                             String type = strikeType.get(p);
                             if ("real".equals(type)) {
+                                KeepInventoryManager.enableKeepInventoryTemporarily(plg, b.getWorld(), "t");
                                 b.getWorld().strikeLightning(b.getLocation());
                             } else {
                                 // "dumy"またはnullの場合はエフェクトのみ
