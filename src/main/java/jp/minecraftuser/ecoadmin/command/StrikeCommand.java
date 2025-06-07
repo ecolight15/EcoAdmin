@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
+import jp.minecraftuser.ecoframework.TimerFrame;
 import static jp.minecraftuser.ecoframework.Utl.sendPluginMessage;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,6 +28,29 @@ public class StrikeCommand extends CommandFrame {
         super(plg_, name_);
         setAuthBlock(true);
         setAuthConsole(true);
+    }
+
+    /**
+     * 雷発生時にkeep-inventory設定を一時的に有効化する
+     * @param world 対象ワールド
+     */
+    private void enableKeepInventoryTemporarily(World world) {
+        // 元の設定値を保存
+        final Boolean originalKeepInventory = world.getGameRuleValue(GameRule.KEEP_INVENTORY);
+        
+        // keep-inventoryを有効にする
+        world.setGameRule(GameRule.KEEP_INVENTORY, true);
+        
+        // 5秒後（100ティック後）に元の設定に戻す
+        new TimerFrame(plg, name + "_keepinv_restore") {
+            @Override
+            public void run() {
+                // ワールドがまだ存在する場合のみ復元
+                if (plg.getServer().getWorlds().contains(world)) {
+                    world.setGameRule(GameRule.KEEP_INVENTORY, originalKeepInventory);
+                }
+            }
+        }.runTaskLater(plg, 100); // 100ティック = 5秒
     }
 
     /**
@@ -73,6 +99,7 @@ public class StrikeCommand extends CommandFrame {
                     
                     // 雷を落とす
                     if ("real".equals(type)) {
+                        enableKeepInventoryTemporarily(target.getWorld());
                         target.getWorld().strikeLightning(target.getLocation());
                     } else {
                         target.getWorld().strikeLightningEffect(target.getLocation());
