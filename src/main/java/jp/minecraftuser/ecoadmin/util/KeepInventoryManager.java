@@ -15,6 +15,10 @@ import java.util.Map;
  */
 public class KeepInventoryManager {
     
+    // Private constructor to prevent instantiation
+    private KeepInventoryManager() {
+    }
+    
     /**
      * タイマーと元の設定値を保持する内部クラス
      */
